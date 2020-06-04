@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="src/style.css">
+    <link rel="stylesheet" type="text/css" href="Reset.css">
+    <link rel="stylesheet" type="text/css" href="menu.css">
+    <style>
+        body {
+            color: #fff;
+            background: #1d1f21;
+            font-family: 'Source Code Pro', Arial, Helvetica, sans-serif;
+        }
+        
+        .box {
+            margin: 80px auto;
+            width: 100%;
+            max-width: 700px;
+            color: #98c379;
+            font-size: 16px;
+            line-height: 1.5em;
+            letter-spacing: .1em;
+        }
+
+        #timing {
+            color: #fff;
+            background: none;
+            font-size: 12px;
+        }
+
+        .btn {
+            padding: 10px;
+            border-radius: 3px;
+            font-size: 14px;
+            /* background: #7e7e7e; */
+            background: none;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.3s
+        }
+
+        .btn:hover {
+            background: #92929240;
+        }
+
+        .yee>i {
+            animation: spin .7s infinite linear;
+        }
+
+        @keyframes spin {
+            from {
+                transform: scale(1) rotate(0deg);
+            }
+
+            to {
+                transform: scale(1) rotate(360deg);
+            }
+        }
+
+        #modinput {
+            line-height: 3em;
+            min-width: 400px;
+            margin-left: 40px;
+            color: #e0e4e4;
+        }
+
+        #modinput input[type="text"] {
+            width: 80px;
+            margin-left: 1em;
+            font-size: .9em;
+            text-align: center;
+            color: #e0e4e4;
+            background: none;
+            border-bottom: 1.5px solid #e0e4e4;
+        }
+
+        #Make_box {
+            padding: 30px;
+        }
+
+        .err {
+            color: #fff;
+            background: #e05749;
+        }
+
+        .foc {
+            background: #91919150;
+        }
+
+        .good {
+            color: #98c379;
+        }
+
+        #demo {
+            color: #abb2b2;
+            padding: 30px;
+            /*自動換行*/
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        #timer {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            font: size 16px;
+            line-height: 1em
+        }
+
+        #wpm {
+            width: 250px;
+            padding: 20px;
+            background: #444;
+            line-height: 1.8em;
+            margin: 0 auto;
+            opacity: .0;
+            transition: .5s;
+        }
+
+        #wpm>p {
+            font-size: 2em;
+            text-align: center
+        }
+
+        input[type="radio"] {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            border: 2px solid #999;
+            transition: 0.2s all linear;
+            outline: none;
+            margin-right: 5px;
+            position: relative;
+            top: 4px;
+        }
+
+        input:checked {
+            border: 6px solid #fff;
+        }
+
+        #mod2:checked~p {
+            display: none;
+        }
+    </style>
+</head>
+
+<body class="moon">
+    <nav id="menu">
+        <div id="menu_icon_box">
+            <a id="menu_icon">
+                <i class="menu_icon_top"></i>
+                <i class="menu_icon_middle"></i>
+                <i class="menu_icon_bottom"></i>
+            </a>
+        </div>
+
+        <div id="menu_box">
+            <div class="Make_box">
+                <div id="mod1box">
+                    <form id="modinput">
+                        <input type="radio" name="mod" value="mod1" id="mod1" checked><label for="mod1">隨機字母</label>
+                        <input type="radio" name="mod" value="mod2" id="mod2"><label for="mod2">隨機單字</label><br>
+                        字串總字數:<input type="text" name="article" value="5" id="article"
+                            oninput="value=value.replace(/[^\d]/g,'')"><br>
+                        <p>最小字元:<input type="text" name="min" value="2" id="min"
+                                oninput="value=value.replace(/[^\d]/g,'')"></p>
+                        <p>最大字元:<input type="text" name="max" value="6" id="max"
+                                oninput="value=value.replace(/[^\d]/g,'')"></p>
+                        <button type="submit" class="btn">set up</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </nav>
+
+    <div id="timer">
+        經過時間:<input type="text" id="timing" name="xxxx" readonly="readonly" />
+    </div>
+
+    <div class="box">
+        <p id="demo"></p>
+        <button id="reload" class="btn"><i class="icon-loop2"></i></button>
+    </div>
+
+    <div id="wpm">
+        <p><span></span>WPM</p>
+        <hr>
+        正確字數：<span></span><br>
+        錯誤字數：<span></span><br>
+        錯誤率：<span></span>%
+    </div>
+
+    <script>
+        var timer = {
+            _times: 0,
+            _start: 0,
+            _timer: null,
+            _clearInterval: function () {
+                if (this._timer) {
+                    this._timer = clearInterval(this._timer);
+                    this._times += (new Date).getTime() - this._start;
+                }
+            },
+            onStop: null,
+            start: function () {
+                if (this._timer) { return; }
+                var me = this;
+                this._start = (new Date).getTime();
+                this._timer = setInterval(function () {
+                    me.display(me.input, ((((new Date).getTime() - me._start) + me._times) / 100 >> 0) / 10);
+                }, 1000);
+                document.getElementById('wpm').style.opacity = "";
+            },
+            pause: function () {
+                this._clearInterval();
+                SOS(false);
+            },
+            stop: function () {
+                this._clearInterval();
+
+                if (this.onStop instanceof Function) {
+                    this.onStop();
+                }
+                wpm(this._times);
+            },
+            reset: function () {
+                this._clearInterval();
+                this._times = 0;
+                this.display(this.input, 0);
+            },
+            display: function (el, val) {
+                if (!this.input) {
+                    if (!el || 'input' != el.tagName.toLowerCase()) { return; }
+                    this.input = el;
+                }
+                this.input.value = (val) ? parseInt(val / 60 / 60) + "時" + parseInt(val / 60) % 60 + "分" + (val >> 0) % 60 % 60 + "秒" : 0;
+            }
+        }
+        function wpm(times) {
+            var wpm = document.getElementById('wpm').getElementsByTagName('span');
+            var y = z = 0;
+            for (var i = 0, item; item = verification.word[i]; i++) {
+                console.log(font.word[i], verification.word[i])
+                if (font.word[i] == verification.word[i]) {
+                    y++;
+                } else if (font.word[i] != verification.word[i]) {
+                    z++;
+                }
+            }
+            wpm[0].innerHTML = (verification.t / 5 / (times / 1000) * 60) >> 0;
+            wpm[1].innerHTML = y;
+            wpm[2].innerHTML = z;
+            wpm[3].innerHTML = z / verification.word.length * 100;
+            document.getElementById('wpm').style.opacity = "1";
+        }
+    </script>
+
+    <script>
+        var demospan;
+        var data = "abcdefghijklmnopqrstuvwxyz";
+        var dataarr = Array.from(data);
+
+        var control = {
+            article: 0,
+            min: 0,
+            max: 0
+        }
+
+        var font = {
+            article: "",
+            word: "",
+            bit: ""
+        }
+
+        var verification = {
+            word: [],
+            bit: "",
+            t: 0
+        }
+
+        function mod(e) {
+            font = {
+                article: "",
+                word: "",
+                bit: ""
+            }
+            verification = {
+                word: [],
+                bit: "",
+                t: 0
+            }
+
+            
+            verification.word[0] = "";
+            control.article = document.getElementById("article").value;
+
+            if (e == 'mod1') {
+                dataarr = Array.from(data);
+                control.min = parseInt(document.getElementById("min").value);
+                control.max = parseInt(document.getElementById("max").value) + 1;
+            } else if (e == 'mod2') {
+                dataarr = ["as", "his", "that", "he", "was", "for", "on", "are", "with", "they", "be", "at", "one", "have", "this", "from", "by", "hot", "word", "but", "what", "some", "is", "it", "you", "or", "had", "the", "of", "to", "and", "a", "in", "we", "can", "out", "other", "were", "which", "do", "their", "time", "if", "will", "how", "said", "an", "each", "tell", "does", "set", "three", "want", "air", "well", "also", "play", "small", "end", "put", "home", "read", "hand", "port", "large", "spell", "add", "even", "land", "here", "must", "big", "high", "such", "follow", "act", "why", "ask", "men", "change", "went", "light", "kind", "off", "need", "house", "picture", "try", "us", "again", "animal", "point", "mother", "world", "near", "build", "self", "earth", "father", "any", "new", "work", "part", "take", "get", "place", "made", "live", "where", "after", "back", "little", "only", "round", "man", "year", "came", "show", "every", "good", "me", "give", "our", "under", "name", "very", "through", "just", "form", "sentence", "great", "think", "say", "help", "low", "line", "differ", "turn", "cause", "much", "mean", "before", "move", "right", "boy", "old", "too", "same", "she", "all", "there", "when", "up", "use", "your", "way", "about", "many", "then", "them", "write", "would", "like", "so", "these", "her", "long", "make", "thing", "see", "him", "two", "has", "look", "more", "day", "could", "go", "come", "did", "number", "sound", "no", "most", "people", "my", "over", "know", "water", "than", "call", "first", "who", "may", "down", "side", "been", "now", "find", "head", "stand", "own", "page", "should", "country", "found", "answer", "school", "grow", "study", "still", "learn", "plant", "cover", "food", "sun", "four", "between", "state", "keep", "eye", "never", "last", "let", "thought", "city", "tree", "cross", "farm", "hard", "start", "might", "story", "saw", "far", "sea", "draw", "left", "late", "run", "while", "press", "close", "night", "real", "life", "few", "north", "book", "carry", "took", "science", "eat", "room", "friend", "began", "idea", "fish", "mountain", "stop", "once", "base", "hear", "horse", "cut", "sure", "watch", "color", "face", "wood", "main", "open", "seem", "together", "next", "white", "children", "begin", "got", "walk", "example", "ease", "paper", "group", "always", "music", "those", "both", "mark", "often", "letter", "until", "mile", "river", "car", "feet", "care", "second", "enough", "plain", "girl", "usual", "young", "ready", "above", "ever", "red", "list", "though", "feel", "talk", "bird", "soon", "body", "dog", "family", "direct", "pose", "leave", "song", "measure", "door", "product", "black", "short", "numeral", "class", "wind", "question", "happen", "complete", "ship", "area", "half", "rock", "order", "fire", "south", "problem", "piece", "told", "knew", "pass", "since", "top", "whole", "king", "street", "inch", "multiply", "nothing", "course", "stay", "wheel", "full", "force", "blue", "object", "decide", "surface", "deep", "moon", "island", "foot", "system", "busy", "test", "record", "boat", "common", "gold", "possible", "plane", "stead", "dry", "wonder", "laugh", "thousand", "ago", "ran", "check", "game", "shape", "equate", "hot", "miss", "brought", "heat", "snow", "tire", "bring", "yes", "distant", "fill", "east", "paint", "language", "among", "unit", "power", "town", "fine", "certain", "fly", "fall", "lead", "cry", "dark", "machine", "note", "wait", "plan", "figure", "star", "box", "noun", "field", "rest", "correct", "able", "pound", "done", "beauty", "drive", "stood", "contain", "front", "teach", "week", "final", "gave", "green", "oh", "quick", "develop", "ocean", "warm", "free", "minute", "strong", "special", "mind", "behind", "clear", "tail", "produce", "fact", "space", "heard", "best", "hour", "better", "true", "during", "hundred", "five", "remember", "step", "early", "hold", "west", "ground", "interest", "reach", "fast", "verb", "sing", "listen", "six", "table", "travel", "less", "morning", "ten", "simple", "several", "vowel", "toward", "war", "lay", "against", "pattern", "slow", "center", "love", "person", "money", "serve", "appear", "road", "map", "rain", "rule", "govern", "pull", "cold", "notice", "voice", "energy", "hunt", "probable", "bed", "brother", "egg", "ride", "cell", "believe", "perhaps", "pick", "sudden", "count", "square", "reason", "length", "represent", "art", "subject", "region", "size", "vary", "settle", "speak", "weight", "general", "ice", "matter", "circle", "pair", "include", "divide", "syllable", "felt", "grand", "ball", "yet", "wave", "drop", "heart", "am", "present", "heavy", "dance", "engine", "position", "arm", "wide", "sail", "material", "fraction", "forest", "sit", "race", "window", "store", "summer", "train", "sleep", "prove", "lone", "leg", "exercise", "wall", "catch", "mount", "wish", "sky", "board", "joy", "winter", "sat", "written", "wild", "instrument", "kept", "glass", "grass", "cow", "job", "edge", "sign", "visit", "past", "soft", "fun", "bright", "gas", "weather", "month", "million", "bear", "finish", "happy", "hope", "flower", "clothe", "strange", "gone", "trade", "melody", "trip", "office", "receive", "row", "mouth", "exact", "symbol", "die", "least", "trouble", "shout", "except", "wrote", "seed", "tone", "join", "suggest", "clean", "break", "lady", "yard", "rise", "bad", "blow", "oil", "blood", "touch", "grew", "cent", "mix", "team", "wire", "cost", "lost", "brown", "wear", "garden", "equal", "sent", "choose", "fell", "fit", "flow", "fair", "bank", "collect", "save", "control", "decimal", "ear", "else", "quite", "broke", "case", "middle", "kill", "son", "lake", "moment", "scale", "loud", "spring", "observe", "child", "straight", "consonant", "nation", "dictionary", "milk", "speed", "method", "organ", "pay", "age", "section", "dress", "cloud", "surprise", "quiet", "stone", "tiny", "climb", "cool", "design", "poor", "lot", "experiment", "bottom", "key", "iron", "single", "stick", "flat", "twenty", "skin", "smile", "crease", "hole", "jump", "baby", "eight", "village", "meet", "root", "buy", "raise", "solve", "metal", "whether", "push", "seven", "paragraph", "third", "shall", "held", "hair", "describe", "cook", "floor", "either", "result", "burn", "hill", "safe", "cat", "century", "consider", "type", "law", "bit", "coast", "copy", "phrase", "silent", "tall", "sand", "soil", "roll", "temperature", "finger", "industry", "value", "fight", "lie", "beat", "excite", "natural", "view", "sense", "capital", "chair", "danger", "fruit", "rich", "thick", "soldier", "process", "operate", "practice", "separate", "difficult", "doctor", "please", "protect", "noon", "crop", "modern", "element", "hit", "student", "corner", "party", "supply", "whose", "locate", "ring", "character", "insect", "caught", "period", "indicate", "radio", "spoke", "atom", "human", "history", "effect", "electric", "expect", "bone", "rail", "imagine", "provide", "agree", "thus", "gentle", "woman", "captain", "guess", "necessary", "sharp", "wing", "create", "neighbor", "wash", "bat", "rather", "crowd", "corn", "compare", "poem", "string", "bell", "depend", "meat", "rub", "tube", "famous", "dollar", "stream", "fear", "sight", "thin", "triangle", "planet", "hurry", "chief", "colony", "clock", "mine", "tie", "enter", "major", "fresh", "search", "send", "yellow", "gun", "allow", "print", "dead", "spot", "desert", "suit", "current", "lift", "rose", "arrive", "master", "track", "parent", "shore", "division", "sheet", "substance", "favor", "connect", "post", "spend", "chord", "fat", "glad", "original", "share", "station", "dad", "bread", "charge", "proper", "bar", "offer", "segment", "slave", "duck", "instant", "market", "degree", "populate", "chick", "dear", "enemy", "reply", "drink", "occur", "support", "speech", "nature", "range", "steam", "motion", "path", "liquid", "log", "meant", "quotient", "teeth", "shell", "neck", "oxygen", "sugar", "death", "pretty", "skill", "women", "season", "solution", "magnet", "silver", "thank", "branch", "match", "suffix", "especially", "fig", "afraid", "huge", "sister", "steel", "discuss", "forward", "similar", "guide", "experience", "score", "apple", "bought", "led", "pitch", "coat", "mass", "card", "band", "rope", "slip", "win", "dream", "evening", "condition", "feed", "tool", "total", "basic", "smell", "valley", "nor", "double", "seat", "continue", "block", "chart", "hat", "sell", "success", "company", "subtract", "event", "particular", "deal", "swim", "term", "opposite", "wife", "shoe", "shoulder", "spread", "arrange", "camp", "invent", "cotton", "born", "determine", "quart", "nine", "truck", "noise", "level", "chance", "gather", "shop", "stretch", "throw", "shine", "property", "column", "molecule", "select", "wrong", "gray", "repeat", "require", "broad", "prepare", "salt", "nose", "plural", "anger", "claim", "continent"];
+                control.min = control.max = 1;
+            }
+
+            if (control.max < control.min) { alert("請輸入正確數值"); return }
+
+            font.word = new Array(control.article);
+
+            for (var j = 0; j < control.article; j++) {
+                font.word[j] = "";
+                for (var i = 0; i < Math.floor(Math.random() * (control.max - control.min)) + control.min; i++) {
+                    var x = Math.floor(Math.random() * dataarr.length);
+                    font.word[j] += dataarr[x];
+                }
+                font.bit += font.word[j] + " ";
+            }
+
+            font.bit = Array.from(font.bit);
+
+            for (var i = 0, item; item = font.bit[i]; i++) {
+                doem = font.arrticle;
+                font.article += "<span>" + font.bit[i] + "</span>"
+            }
+
+            document.getElementById("demo").innerHTML = font.article;
+            demospan = document.getElementById('demo').getElementsByTagName("span")
+            demospan[0].className = "foc";
+            SOS(true);
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            mod('mod1');
+        })
+
+        document.addEventListener("visibilitychange", function () {
+            timer.pause()
+        })
+        window.addEventListener("blur", function () {
+            timer.pause()
+        })
+
+        function SOS(e) {
+            if (e) {
+                document.addEventListener('keypress', input)
+                document.addEventListener('keydown', backspace)
+            } else {
+                document.removeEventListener('keypress', input)
+                document.removeEventListener('keydown', backspace)
+            }
+        }
+
+        function input(e) {
+            timer.start();
+            var e = e || window.event;
+            e.preventDefault();
+            verification.bit += String.fromCharCode(event.keyCode);
+            var x = verification.bit.length - 1;
+
+            if (font.bit[x] == " ") {
+                verification.word[verification.word.length] = "";
+            } else {
+                verification.word[verification.word.length - 1] += String.fromCharCode(event.keyCode);
+            }
+
+            if (String.fromCharCode(event.keyCode) == font.bit[x]) {
+                demospan[x].className = "good";
+                verification.t++
+            } else {
+                demospan[x].className = "err";
+            }
+
+            if (font.bit.length - 2 > x) {
+                demospan[x + 1].className = "foc";
+            } else {
+                timer.stop();
+                SOS(false);
+            }
+        }
+
+        function backspace(e) {
+            var e = e || window.event;
+            var x = verification.bit.length - 1;
+            var y = verification.word.length - 1;
+            if (e.keyCode === 8 && x >= 0) {
+                demospan[x + 1].className = "";
+                demospan[x].className = "foc";
+                verification.bit = verification.bit.substr(0, x);
+                if (font.bit[x] == " ") {
+                    verification.word.splice(y, 1);
+                } else {
+                    verification.word[y] = verification.word[y].substr(0, verification.word[y].length - 1)
+                }
+                console.log(verification.word)
+            }
+        }
+
+        document.getElementById('reload').addEventListener('click', function () {
+            mod();
+        })
+
+        var form = document.getElementById('modinput');
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            var data = new FormData(form);
+            mod(data.get('mod'))
+        })
+
+    </script>
+    <script>
+        timer.display(document.getElementById('timing'));
+    </script>
+
+    <script src="menu.js"></script>
+</body>
+
+</html>
