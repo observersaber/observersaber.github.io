@@ -21,7 +21,7 @@
             background: #1d1f21;
             font-family: 'Source Code Pro', Arial, Helvetica, sans-serif;
         }
-        
+
         .box {
             margin: 80px auto;
             width: 100%;
@@ -42,7 +42,7 @@
             padding: 10px;
             border-radius: 3px;
             font-size: 14px;
-            /* background: #7e7e7e; */
+            background: #7e7e7e;
             background: none;
             border: none;
             color: #fff;
@@ -114,7 +114,7 @@
             position: fixed;
             bottom: 0;
             right: 0;
-            font: size 16px;
+            font-size: 16px;
             line-height: 1em
         }
 
@@ -148,13 +148,69 @@
             top: 4px;
         }
 
-        input:checked {
+        input[type="radio"]:checked {
             border: 6px solid #fff;
         }
 
         #mod2:checked~p {
             display: none;
         }
+
+        .toggle:before,
+        .toggle:after,
+        .toggle:checked:after {
+            transition: .3s;
+            transition-timing-function: ease-out;
+        }
+
+        .toggle {
+            background: #000;
+            position: relative;
+            border-radius: 0.75em;
+            cursor: pointer;
+            width: 3em;
+            height: 1.5em;
+            -webkit-appearance: none;
+            appearance: none;
+            -webkit-tap-highlight-color: transparent;
+            overflow: hidden;
+            outline: transparent;
+        }
+
+        .toggle:before,
+        .toggle:after {
+            background: #fff;
+            border-radius: 50%;
+            content: "";
+            top: 0.25em;
+            left: 0.25em;
+            width: 1em;
+            height: 1em;
+            position: absolute;
+        }
+
+        .toggle:checked:before,
+        .toggle:after {
+            transition-delay: .225s;
+            transition-timing-function: cubic-bezier(0.3, 1.6, 0.5, 0.7);
+        }
+
+        .toggle:before {
+            left: -1em;
+        }
+
+        .toggle:checked:before {
+            left: 1.75em;
+        }
+
+        .toggle:checked:after {
+            left: 3em;
+        }
+
+        .toggle:checked~.curtain {
+            width: 100%;
+        }
+
     </style>
 </head>
 
@@ -182,14 +238,14 @@
                                 oninput="value=value.replace(/[^\d]/g,'')"></p>
                         <button type="submit" class="btn">set up</button>
                     </form>
+                    <input id="dark-mode" class="toggle" type="checkbox" name="Dark mode" role="switch" value="on">
                 </div>
-
             </div>
         </div>
     </nav>
 
     <div id="timer">
-        經過時間:<input type="text" id="timing" name="xxxx" readonly="readonly" />
+        經過時間:<input id="timing" name="xxxx" readonly="readonly" />
     </div>
 
     <div class="box">
@@ -273,7 +329,9 @@
     <script>
         var demospan;
         var data = "abcdefghijklmnopqrstuvwxyz";
-        var dataarr = Array.from(data);
+        var dataarr = [].slice.call(data);
+
+        //var dataarr = Array.from(data);
 
         var control = {
             article: 0,
@@ -294,6 +352,7 @@
         }
 
         function mod(e) {
+            timer.reset();
             font = {
                 article: "",
                 word: "",
@@ -305,12 +364,11 @@
                 t: 0
             }
 
-            
             verification.word[0] = "";
             control.article = document.getElementById("article").value;
 
             if (e == 'mod1') {
-                dataarr = Array.from(data);
+                dataarr = [].slice.call(data);
                 control.min = parseInt(document.getElementById("min").value);
                 control.max = parseInt(document.getElementById("max").value) + 1;
             } else if (e == 'mod2') {
@@ -330,8 +388,7 @@
                 }
                 font.bit += font.word[j] + " ";
             }
-
-            font.bit = Array.from(font.bit);
+            font.bit = [].slice.call(font.bit);
 
             for (var i = 0, item; item = font.bit[i]; i++) {
                 doem = font.arrticle;
@@ -341,18 +398,23 @@
             document.getElementById("demo").innerHTML = font.article;
             demospan = document.getElementById('demo').getElementsByTagName("span")
             demospan[0].className = "foc";
-            SOS(true);
         }
 
         document.addEventListener("DOMContentLoaded", function () {
             mod('mod1');
+            SOS(true);
         })
 
-        document.addEventListener("visibilitychange", function () {
-            timer.pause()
-        })
+        // document.addEventListener("visibilitychange", function () {
+        //     console.log(document.visibilitychange);
+        //     (document.visibilitychange == "hidden") ? timer.pause() : SOS(true)
+        // })
+
         window.addEventListener("blur", function () {
-            timer.pause()
+            timer.pause();
+        })
+        window.addEventListener("focus", function () {
+            SOS(true);
         })
 
         function SOS(e) {
@@ -398,6 +460,7 @@
             var x = verification.bit.length - 1;
             var y = verification.word.length - 1;
             if (e.keyCode === 8 && x >= 0) {
+                e.preventDefault();
                 demospan[x + 1].className = "";
                 demospan[x].className = "foc";
                 verification.bit = verification.bit.substr(0, x);
@@ -406,7 +469,6 @@
                 } else {
                     verification.word[y] = verification.word[y].substr(0, verification.word[y].length - 1)
                 }
-                console.log(verification.word)
             }
         }
 
