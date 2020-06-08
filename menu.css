@@ -3,7 +3,7 @@
     top: 0;
     left: 0;
     height: 100%;
-    max-width:100%;
+    max-width: 100%;
     background: #2d2f30;
 }
 
@@ -12,7 +12,7 @@
     width: 0;
     height: 85px;
     transition: 0s;
-    transition-delay: .7s;
+    transition-delay: .4s;
 }
 
 #menu_icon_box.open {
@@ -28,7 +28,7 @@
     margin: 30px;
     cursor: pointer;
     transition: 0s;
-    transition-delay: .8s;
+    transition-delay: .4s;
 }
 
 #menu_icon_box.open #menu_icon {
@@ -41,9 +41,9 @@
     display: block;
     height: 12%;
     left: 0;
-    background: #fff;
+    background: #aaa;
     transition: opacity .2s;
-    animation-duration: 1.8s;
+    animation-duration: 1.4s;
     animation-fill-mode: forwards;
 }
 
@@ -203,6 +203,6 @@
 #menu_box {
     overflow: hidden;
     width: 0;
-    transition: .6s;
-    transition-delay: .6s;
+    transition: .9s;
+    transition-delay: .2s;
 }

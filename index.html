@@ -15,10 +15,13 @@
     <link rel="stylesheet" type="text/css" href="src/style.css">
     <link rel="stylesheet" type="text/css" href="Reset.css">
     <link rel="stylesheet" type="text/css" href="menu.css">
+
+    <link rel="stylesheet" type="text/css" href="range.css">
     <style>
         body {
             color: #fff;
             background: #1d1f21;
+            transition: background .3s;
             font-family: 'Source Code Pro', Arial, Helvetica, sans-serif;
         }
 
@@ -39,10 +42,14 @@
         }
 
         .btn {
+            display: inline-block;
+            *display: inline;
+            *zoom: 1;
+
             padding: 10px;
             border-radius: 3px;
             font-size: 14px;
-            background: #7e7e7e;
+            line-height: 1em;
             background: none;
             border: none;
             color: #fff;
@@ -105,7 +112,6 @@
         #demo {
             color: #abb2b2;
             padding: 30px;
-            /*自動換行*/
             white-space: pre-wrap;
             word-wrap: break-word;
         }
@@ -156,65 +162,48 @@
             display: none;
         }
 
-        .toggle:before,
-        .toggle:after,
-        .toggle:checked:after {
-            transition: .3s;
-            transition-timing-function: ease-out;
+        #BColor {
+            display: none;
         }
 
-        .toggle {
-            background: #000;
-            position: relative;
-            border-radius: 0.75em;
+        .toggle_BColor {
             cursor: pointer;
-            width: 3em;
-            height: 1.5em;
-            -webkit-appearance: none;
-            appearance: none;
-            -webkit-tap-highlight-color: transparent;
-            overflow: hidden;
-            outline: transparent;
+            display: block;
+            margin: 0 auto;
+            position: relative;
+            height: 30px;
+            width: 60px;
+            border-radius: 70px;
+            transition: all 250ms ease-in;
+            background-color: #1d1f21;
         }
 
-        .toggle:before,
-        .toggle:after {
-            background: #fff;
-            border-radius: 50%;
-            content: "";
-            top: 0.25em;
-            left: 0.25em;
-            width: 1em;
-            height: 1em;
+        .toggle_BColor:before {
+            content: '';
+            display: block;
             position: absolute;
+            top: 5px;
+            left: 5px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            transition: all 250ms ease-in;
+            background-color: #fafafa;
         }
 
-        .toggle:checked:before,
-        .toggle:after {
-            transition-delay: .225s;
-            transition-timing-function: cubic-bezier(0.3, 1.6, 0.5, 0.7);
+        #BColor:checked+.toggle_BColor {
+            background-color: #fafafa;
         }
 
-        .toggle:before {
-            left: -1em;
+        #BColor:checked+.toggle_BColor:before {
+            left: 35px;
+            background-color: #1d1f21;
         }
-
-        .toggle:checked:before {
-            left: 1.75em;
-        }
-
-        .toggle:checked:after {
-            left: 3em;
-        }
-
-        .toggle:checked~.curtain {
-            width: 100%;
-        }
-
     </style>
 </head>
 
-<body class="moon">
+<body>
+
     <nav id="menu">
         <div id="menu_icon_box">
             <a id="menu_icon">
@@ -223,22 +212,26 @@
                 <i class="menu_icon_bottom"></i>
             </a>
         </div>
-
         <div id="menu_box">
             <div class="Make_box">
                 <div id="mod1box">
                     <form id="modinput">
-                        <input type="radio" name="mod" value="mod1" id="mod1" checked><label for="mod1">隨機字母</label>
-                        <input type="radio" name="mod" value="mod2" id="mod2"><label for="mod2">隨機單字</label><br>
-                        字串總字數:<input type="text" name="article" value="5" id="article"
+                        <input type="radio" name="mod" id="mod1" checked><label for="mod1">隨機字母</label>
+                        <input type="radio" name="mod" id="mod2"><label for="mod2">隨機單字</label><br>
+                        字串總字數:<input type="text" name="article" value="90" id="article"
                             oninput="value=value.replace(/[^\d]/g,'')"><br>
                         <p>最小字元:<input type="text" name="min" value="2" id="min"
                                 oninput="value=value.replace(/[^\d]/g,'')"></p>
                         <p>最大字元:<input type="text" name="max" value="6" id="max"
                                 oninput="value=value.replace(/[^\d]/g,'')"></p>
                         <button type="submit" class="btn">set up</button>
+
+                        <input type="checkbox" id="BColor"><label class="toggle_BColor" for="BColor"></label>
+
+                        <input type="range" min="12" max="30" value="18" class="slider" id="myRange">
+                        <p>Value: <span id="yee"></span></p>
                     </form>
-                    <input id="dark-mode" class="toggle" type="checkbox" name="Dark mode" role="switch" value="on">
+
                 </div>
             </div>
         </div>
@@ -250,7 +243,7 @@
 
     <div class="box">
         <p id="demo"></p>
-        <button id="reload" class="btn"><i class="icon-loop2"></i></button>
+        <div id="reload" class="btn" type="button"><i class="icon-loop2"></i></div>
     </div>
 
     <div id="wpm">
@@ -260,6 +253,7 @@
         錯誤字數：<span></span><br>
         錯誤率：<span></span>%
     </div>
+
 
     <script>
         var timer = {
@@ -307,11 +301,11 @@
                 this.input.value = (val) ? parseInt(val / 60 / 60) + "時" + parseInt(val / 60) % 60 + "分" + (val >> 0) % 60 % 60 + "秒" : 0;
             }
         }
+
         function wpm(times) {
             var wpm = document.getElementById('wpm').getElementsByTagName('span');
             var y = z = 0;
             for (var i = 0, item; item = verification.word[i]; i++) {
-                console.log(font.word[i], verification.word[i])
                 if (font.word[i] == verification.word[i]) {
                     y++;
                 } else if (font.word[i] != verification.word[i]) {
@@ -327,12 +321,7 @@
     </script>
 
     <script>
-        var demospan;
-        var data = "abcdefghijklmnopqrstuvwxyz";
-        var dataarr = [].slice.call(data);
-
-        //var dataarr = Array.from(data);
-
+        var demospan, dataarr;
         var control = {
             article: 0,
             min: 0,
@@ -352,14 +341,16 @@
         }
 
         function mod(e) {
+            SOS(false);
             timer.reset();
+
             font = {
                 article: "",
                 word: "",
                 bit: ""
             }
             verification = {
-                word: [],
+                word: new Array(),
                 bit: "",
                 t: 0
             }
@@ -368,6 +359,7 @@
             control.article = document.getElementById("article").value;
 
             if (e == 'mod1') {
+                var data = "abcdefghijklmnopqrstuvwxyz";
                 dataarr = [].slice.call(data);
                 control.min = parseInt(document.getElementById("min").value);
                 control.max = parseInt(document.getElementById("max").value) + 1;
@@ -398,6 +390,7 @@
             document.getElementById("demo").innerHTML = font.article;
             demospan = document.getElementById('demo').getElementsByTagName("span")
             demospan[0].className = "foc";
+
         }
 
         document.addEventListener("DOMContentLoaded", function () {
@@ -414,7 +407,7 @@
             timer.pause();
         })
         window.addEventListener("focus", function () {
-            SOS(true);
+            SOS(true)
         })
 
         function SOS(e) {
@@ -474,6 +467,7 @@
 
         document.getElementById('reload').addEventListener('click', function () {
             mod();
+            SOS(true);
         })
 
         var form = document.getElementById('modinput');
@@ -483,12 +477,27 @@
             mod(data.get('mod'))
         })
 
+
+        form.addEventListener("click", function (e) {
+            var e = e || window.event,
+                target = event.srcElement || event.target;
+
+                if(target.id=='BColor'){
+                    if(target.checked){
+                        document.body.style.background='#fafafa';
+                    }else{
+                        document.body.style='';
+                    }
+                }
+        })
+
     </script>
     <script>
         timer.display(document.getElementById('timing'));
     </script>
 
     <script src="menu.js"></script>
+    <script src="ranje.js"></script>
 </body>
 
 </html>
