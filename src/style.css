@@ -1,4 +1,12 @@
 @font-face {
+  font-family: 'SourceCodePro';
+  src:  url('fonts/SourceCodePro.woff2') format("woff2"),
+    url('fonts/SourceCodePro.woff') format("woff"),
+    url('fonts/SourceCodePro.ttf') format("truetype"),
+    url('fonts/SourceCodePro.eot') format("embedded-opentype");
+}
+
+@font-face {
   font-family: 'icomoon';
   src:  url('fonts/icomoon.eot?xfzwnl');
   src:  url('fonts/icomoon.eot?xfzwnl#iefix') format('embedded-opentype'),
