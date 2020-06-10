@@ -30,7 +30,6 @@
             max-width: 700px;
             color: #87c25c;
             /*color:#93d663;*/
-            
             letter-spacing: .1em;
         }
 
@@ -199,6 +198,33 @@
             left: 35px;
             background-color: #1d1f21;
         }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            width: 100%;
+            height: 40px;
+            background: #000;
+
+        }
+
+        #Electrocardiogram {
+            width: 100px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        #Electrocardiogram:after {
+            position: absolute;
+            top: 2px;
+            left: 100%;
+            content: 'wps';
+            font-size: 14px;
+            color: #fff;
+            float: left;
+        }
     </style>
 </head>
 
@@ -216,8 +242,8 @@
             <div class="Make_box">
                 <div id="mod1box">
                     <form id="modinput">
-                        <input type="radio" name="mod" id="mod1" checked><label for="mod1">隨機字母</label>
-                        <input type="radio" name="mod" id="mod2"><label for="mod2">隨機單字</label><br>
+                        <input type="radio" name="mod" id="mod1" value="mod1" checked><label for="mod1">隨機字母</label>
+                        <input type="radio" name="mod" id="mod2" value="mod2"><label for="mod2">隨機單字</label><br>
                         字串總字數:<input type="text" name="article" value="90" id="article"
                             oninput="value=value.replace(/[^\d]/g,'')"><br>
                         <p>最小字元:<input type="text" name="min" value="2" id="min"
@@ -228,18 +254,14 @@
 
                         <input type="checkbox" id="BColor"><label class="toggle_BColor" for="BColor"></label>
 
-                        <input type="range" min="12" max="30" value="16" class="slider" id="myRange">
-                        <p>Value: <span id="yee"></span></p>
-                    </form>
+                        <input type="range" min="12" max="30" value="16" class="slider" id="myRange"> 字體大小: <span
+                            id="yee"></span><br>
 
+                    </form>
                 </div>
             </div>
         </div>
     </nav>
-
-    <div id="timer">
-        經過時間:<input id="timing" name="xxxx" readonly="readonly" />
-    </div>
 
     <div class="box">
         <p id="demo"></p>
@@ -253,8 +275,18 @@
         錯誤字數：<span></span><br>
         錯誤率：<span></span>%
     </div>
-
-
+    <footer>
+        <div id="timer">
+            經過時間:<input id="timing" name="xxxx" readonly="readonly" />
+        </div>
+        <div id="Electrocardiogram">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 -4 20 8" id="svg1">
+                <path
+                    d="M0 0 1 0 2 0 3 0 4 0 5 0 6 0 7 0 8 0 9 0 10 0 11 0 12 0 13 0 14 0 15 0 16 0 17 0 18 0 19 0 20 0 21 0 22 0 23 0 24 0 25 0 26 0 27 0 28 0"
+                    style="fill:none;stroke:#fff;stroke-width:.2" />
+            </svg>
+        </div>
+    </footer>
     <script>
         var timer = {
             _times: 0,
@@ -365,7 +397,7 @@
                 control.min = parseInt(document.getElementById("min").value);
                 control.max = parseInt(document.getElementById("max").value) + 1;
             } else if (e == 'mod2') {
-                dataarr = ["as","are","at","and","a","an","add","air","also","act","ask","able","about","above","afraid","after","again","against","age","ago","agree","all","allow","always","am","among","anger","animal","answer","any","appear","apple","area","arm","arrange","arrive","art","atom","but","be","by","big","baby","back","bad","ball","band","bank","bar","base","basic","bat","bear","beat","beauty","bed","been","before","began","begin","behind","believe","bell","best","better","between","bird","bit","black","block","blood","blow","blue","board","boat","body","bone","book","born","both","bottom","bought","box","boy","branch","bread","break","bright","bring","broad","broke","brother","brought","brown","build","burn","busy","buy","can","call","came","camp","capital","captain","car","card","care","carry","case","cat","catch","caught","cause","cell","cent","center","century","certain","chair","chance","change","character","charge","chart","check","chick","chief","child","children","choose","chord","circle","city","claim","class","clean","clear","climb","clock","close","clothe","cloud","coast","coat","cold","collect","colony","color","column","come","common","company","compare","complete","condition","connect","consider","consonant","contain","continent","continue","control","cook","cool","copy","corn","corner","correct","cost","cotton","could","count","country","course","cover","cow","crease","create","crop","cross","crowd","cry","current","cut","do","does","dad","dance","danger","dark","day","dead","deal","dear","death","decide","decimal","deep","degree","depend","describe","desert","design","determine","develop","dictionary","did","die","differ","difficult","direct","discuss","distant","divide","division","doctor","dog","dollar","done","door","double","down","draw","dream","dress","drink","drive","drop","dry","duck","during","each","even","end","ear","early","earth","ease","east","eat","edge","effect","egg","eight","either","electric","element","else","enemy","energy","engine","enough","enter","equal","equate","especially","evening","event","ever","every","exact","example","except","excite","exercise","expect","experience","experiment","eye","for","from","follow","face","fact","fair","fall","family","famous","far","farm","fast","fat","father","favor","fear","feed","feel","feet","fell","felt","few","field","fig","fight","figure","fill","final","find","fine","finger","finish","fire","first","fish","fit","five","flat","floor","flow","flower","fly","food","foot","force","forest","form","forward","found","four","fraction","free","fresh","friend","front","fruit","full","fun","game","garden","gas","gather","gave","general","gentle","get","girl","give","glad","glass","go","gold","gone","good","got","govern","grand","grass","gray","great","green","grew","ground","group","grow","guess","guide","gun","he","his","have","hot","had","how","here","high","home","hand","hair","half","happen","happy","hard","has","hat","head","hear","heard","heart","heat","heavy","held","help","her","hill","him","history","hit","hold","hole","hope","horse","hour","house","huge","human","hundred","hunt","hurry","it","is","in","if","ice","idea","imagine","inch","include","indicate","industry","insect","instant","instrument","interest","invent","iron","island","lady","lake","land","language","large","last","late","laugh","law","lay","lead","learn","least","leave","led","left","leg","length","less","let","letter","level","lie","life","lift","light","like","line","liquid","list","listen","little","live","locate","log","lone","long","look","lost","lot","loud","love","low","job","join","joy","jump","just","keep","kept","key","kill","kind","king","knew","know","land","large","must","machine","made","magnet","main","major","make","man","many","map","mark","market","mass","master","match","material","matter","may","me","mean","meant","measure","meat","meet","melody","men","metal","method","middle","might","mile","milk","million","mind","mine","minute","miss","mix","modern","molecule","moment","money","month","moon","more","morning","most","mother","motion","mount","mountain","mouth","move","much","multiply","music","my","name","nation","natural","nature","near","necessary","neck","need","neighbor","never","new","next","night","nine","no","noise","noon","nor","north","nose","note","nothing","notice","noun","now","number","numeral","one","on","or","of","out","other","object","observe","occur","ocean","off","offer","office","often","oh","oil","old","once","only","open","operate","opposite","order","organ","original","our","over","own","oxygen","play","port","put","page","paint","pair","paper","paragraph","parent","part","particular","party","pass","past","path","pattern","pay","people","perhaps","period","person","phrase","pick","picture","piece","pitch","place","plain","plan","plane","planet","plant","please","plural","poem","point","poor","populate","pose","position","possible","post","pound","power","practice","prepare","present","press","pretty","print","probable","problem","process","produce","product","proper","property","protect","prove","provide","pull","push","quart","question","quick","quiet","quite","quotient","read","race","radio","rail","rain","raise","ran","range","rather","reach","ready","real","reason","receive","record","red","region","remember","repeat","reply","represent","require","rest","result","rich","ride","right","ring","rise","river","road","rock","roll","room","root","rope","rose","round","row","rub","rule","run","some","said","set","spell","small","such","safe","sail","salt","same","sand","sat","save","saw","say","scale","school","science","score","sea","search","season","seat","second","section","see","seed","seem","segment","select","self","sell","send","sense","sent","sentence","separate","serve","settle","seven","several","shall","shape","share","sharp","she","sheet","shell","shine","ship","shoe","shop","shore","short","should","shoulder","shout","show","side","sight","sign","silent","silver","similar","simple","since","sing","single","sister","sit","six","size","skill","skin","sky","slave","sleep","slip","slow","smell","smile","snow","so","soft","soil","soldier","solution","solve","son","song","soon","sound","south","space","speak","special","speech","speed","spend","spoke","spot","spread","spring","square","stand","star","start","state","station","stay","stead","steam","steel","step","stick","still","stone","stood","stop","store","story","straight","strange","stream","street","stretch","string","strong","student","study","subject","substance","subtract","success","sudden","suffix","sugar","suggest","suit","summer","sun","supply","support","sure","surface","surprise","swim","syllable","symbol","system","they","that","this","the","to","their","time","tell","three","table","tail","take","talk","tall","teach","team","teeth","temperature","ten","term","test","than","thank","them","then","there","these","thick","thin","thing","think","third","those","though","thought","thousand","through","throw","thus","tie","tiny","tire","together","told","tone","too","took","tool","top","total","touch","toward","town","track","trade","train","travel","tree","triangle","trip","trouble","truck","true","try","tube","turn","twenty","two","type","under","unit","until","up","us","use","usual","valley","value","vary","verb","very","view","village","visit","voice","vowel","with","what","was","word","we","were","which","will","want","well","why","wait","walk","wall","war","warm","wash","watch","water","wave","way","wear","weather","week","weight","went","west","wheel","when","where","whether","while","white","who","whole","whose","wide","wife","wild","win","wind","window","wing","winter","wire","wish","woman","women","wonder","wood","work","world","would","write","written","wrong","wrote","you","yard","year","yellow","yes","yet","young","your"];
+                dataarr = ["as", "are", "at", "and", "a", "an", "add", "air", "also", "act", "ask", "able", "about", "above", "afraid", "after", "again", "against", "age", "ago", "agree", "all", "allow", "always", "am", "among", "anger", "animal", "answer", "any", "appear", "apple", "area", "arm", "arrange", "arrive", "art", "atom", "but", "be", "by", "big", "baby", "back", "bad", "ball", "band", "bank", "bar", "base", "basic", "bat", "bear", "beat", "beauty", "bed", "been", "before", "began", "begin", "behind", "believe", "bell", "best", "better", "between", "bird", "bit", "black", "block", "blood", "blow", "blue", "board", "boat", "body", "bone", "book", "born", "both", "bottom", "bought", "box", "boy", "branch", "bread", "break", "bright", "bring", "broad", "broke", "brother", "brought", "brown", "build", "burn", "busy", "buy", "can", "call", "came", "camp", "capital", "captain", "car", "card", "care", "carry", "case", "cat", "catch", "caught", "cause", "cell", "cent", "center", "century", "certain", "chair", "chance", "change", "character", "charge", "chart", "check", "chick", "chief", "child", "children", "choose", "chord", "circle", "city", "claim", "class", "clean", "clear", "climb", "clock", "close", "clothe", "cloud", "coast", "coat", "cold", "collect", "colony", "color", "column", "come", "common", "company", "compare", "complete", "condition", "connect", "consider", "consonant", "contain", "continent", "continue", "control", "cook", "cool", "copy", "corn", "corner", "correct", "cost", "cotton", "could", "count", "country", "course", "cover", "cow", "crease", "create", "crop", "cross", "crowd", "cry", "current", "cut", "do", "does", "dad", "dance", "danger", "dark", "day", "dead", "deal", "dear", "death", "decide", "decimal", "deep", "degree", "depend", "describe", "desert", "design", "determine", "develop", "dictionary", "did", "die", "differ", "difficult", "direct", "discuss", "distant", "divide", "division", "doctor", "dog", "dollar", "done", "door", "double", "down", "draw", "dream", "dress", "drink", "drive", "drop", "dry", "duck", "during", "each", "even", "end", "ear", "early", "earth", "ease", "east", "eat", "edge", "effect", "egg", "eight", "either", "electric", "element", "else", "enemy", "energy", "engine", "enough", "enter", "equal", "equate", "especially", "evening", "event", "ever", "every", "exact", "example", "except", "excite", "exercise", "expect", "experience", "experiment", "eye", "for", "from", "follow", "face", "fact", "fair", "fall", "family", "famous", "far", "farm", "fast", "fat", "father", "favor", "fear", "feed", "feel", "feet", "fell", "felt", "few", "field", "fig", "fight", "figure", "fill", "final", "find", "fine", "finger", "finish", "fire", "first", "fish", "fit", "five", "flat", "floor", "flow", "flower", "fly", "food", "foot", "force", "forest", "form", "forward", "found", "four", "fraction", "free", "fresh", "friend", "front", "fruit", "full", "fun", "game", "garden", "gas", "gather", "gave", "general", "gentle", "get", "girl", "give", "glad", "glass", "go", "gold", "gone", "good", "got", "govern", "grand", "grass", "gray", "great", "green", "grew", "ground", "group", "grow", "guess", "guide", "gun", "he", "his", "have", "hot", "had", "how", "here", "high", "home", "hand", "hair", "half", "happen", "happy", "hard", "has", "hat", "head", "hear", "heard", "heart", "heat", "heavy", "held", "help", "her", "hill", "him", "history", "hit", "hold", "hole", "hope", "horse", "hour", "house", "huge", "human", "hundred", "hunt", "hurry", "it", "is", "in", "if", "ice", "idea", "imagine", "inch", "include", "indicate", "industry", "insect", "instant", "instrument", "interest", "invent", "iron", "island", "lady", "lake", "land", "language", "large", "last", "late", "laugh", "law", "lay", "lead", "learn", "least", "leave", "led", "left", "leg", "length", "less", "let", "letter", "level", "lie", "life", "lift", "light", "like", "line", "liquid", "list", "listen", "little", "live", "locate", "log", "lone", "long", "look", "lost", "lot", "loud", "love", "low", "job", "join", "joy", "jump", "just", "keep", "kept", "key", "kill", "kind", "king", "knew", "know", "land", "large", "must", "machine", "made", "magnet", "main", "major", "make", "man", "many", "map", "mark", "market", "mass", "master", "match", "material", "matter", "may", "me", "mean", "meant", "measure", "meat", "meet", "melody", "men", "metal", "method", "middle", "might", "mile", "milk", "million", "mind", "mine", "minute", "miss", "mix", "modern", "molecule", "moment", "money", "month", "moon", "more", "morning", "most", "mother", "motion", "mount", "mountain", "mouth", "move", "much", "multiply", "music", "my", "name", "nation", "natural", "nature", "near", "necessary", "neck", "need", "neighbor", "never", "new", "next", "night", "nine", "no", "noise", "noon", "nor", "north", "nose", "note", "nothing", "notice", "noun", "now", "number", "numeral", "one", "on", "or", "of", "out", "other", "object", "observe", "occur", "ocean", "off", "offer", "office", "often", "oh", "oil", "old", "once", "only", "open", "operate", "opposite", "order", "organ", "original", "our", "over", "own", "oxygen", "play", "port", "put", "page", "paint", "pair", "paper", "paragraph", "parent", "part", "particular", "party", "pass", "past", "path", "pattern", "pay", "people", "perhaps", "period", "person", "phrase", "pick", "picture", "piece", "pitch", "place", "plain", "plan", "plane", "planet", "plant", "please", "plural", "poem", "point", "poor", "populate", "pose", "position", "possible", "post", "pound", "power", "practice", "prepare", "present", "press", "pretty", "print", "probable", "problem", "process", "produce", "product", "proper", "property", "protect", "prove", "provide", "pull", "push", "quart", "question", "quick", "quiet", "quite", "quotient", "read", "race", "radio", "rail", "rain", "raise", "ran", "range", "rather", "reach", "ready", "real", "reason", "receive", "record", "red", "region", "remember", "repeat", "reply", "represent", "require", "rest", "result", "rich", "ride", "right", "ring", "rise", "river", "road", "rock", "roll", "room", "root", "rope", "rose", "round", "row", "rub", "rule", "run", "some", "said", "set", "spell", "small", "such", "safe", "sail", "salt", "same", "sand", "sat", "save", "saw", "say", "scale", "school", "science", "score", "sea", "search", "season", "seat", "second", "section", "see", "seed", "seem", "segment", "select", "self", "sell", "send", "sense", "sent", "sentence", "separate", "serve", "settle", "seven", "several", "shall", "shape", "share", "sharp", "she", "sheet", "shell", "shine", "ship", "shoe", "shop", "shore", "short", "should", "shoulder", "shout", "show", "side", "sight", "sign", "silent", "silver", "similar", "simple", "since", "sing", "single", "sister", "sit", "six", "size", "skill", "skin", "sky", "slave", "sleep", "slip", "slow", "smell", "smile", "snow", "so", "soft", "soil", "soldier", "solution", "solve", "son", "song", "soon", "sound", "south", "space", "speak", "special", "speech", "speed", "spend", "spoke", "spot", "spread", "spring", "square", "stand", "star", "start", "state", "station", "stay", "stead", "steam", "steel", "step", "stick", "still", "stone", "stood", "stop", "store", "story", "straight", "strange", "stream", "street", "stretch", "string", "strong", "student", "study", "subject", "substance", "subtract", "success", "sudden", "suffix", "sugar", "suggest", "suit", "summer", "sun", "supply", "support", "sure", "surface", "surprise", "swim", "syllable", "symbol", "system", "they", "that", "this", "the", "to", "their", "time", "tell", "three", "table", "tail", "take", "talk", "tall", "teach", "team", "teeth", "temperature", "ten", "term", "test", "than", "thank", "them", "then", "there", "these", "thick", "thin", "thing", "think", "third", "those", "though", "thought", "thousand", "through", "throw", "thus", "tie", "tiny", "tire", "together", "told", "tone", "too", "took", "tool", "top", "total", "touch", "toward", "town", "track", "trade", "train", "travel", "tree", "triangle", "trip", "trouble", "truck", "true", "try", "tube", "turn", "twenty", "two", "type", "under", "unit", "until", "up", "us", "use", "usual", "valley", "value", "vary", "verb", "very", "view", "village", "visit", "voice", "vowel", "with", "what", "was", "word", "we", "were", "which", "will", "want", "well", "why", "wait", "walk", "wall", "war", "warm", "wash", "watch", "water", "wave", "way", "wear", "weather", "week", "weight", "went", "west", "wheel", "when", "where", "whether", "while", "white", "who", "whole", "whose", "wide", "wife", "wild", "win", "wind", "window", "wing", "winter", "wire", "wish", "woman", "women", "wonder", "wood", "work", "world", "would", "write", "written", "wrong", "wrote", "you", "yard", "year", "yellow", "yes", "yet", "young", "your"];
                 control.min = control.max = 1;
             }
 
@@ -478,7 +510,6 @@
             mod(data.get('mod'))
         })
 
-
         form.addEventListener("click", function (e) {
             var e = e || window.event,
                 target = event.srcElement || event.target;
@@ -499,6 +530,7 @@
 
     <script src="menu.js"></script>
     <script src="ranje.js"></script>
+    <script src="Electrocardiogram.js"></script>
 </body>
 
 </html>
