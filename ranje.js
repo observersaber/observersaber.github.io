@@ -1,25 +1,15 @@
-var slider = document.getElementById("myRange");
-var output = document.getElementById("yee");
-output.innerHTML = slider.value;
+var fsRange = document.getElementById("fsRange");
 
-// slider.oninput = function () {
-//     output.innerHTML = this.value;
-// }
-// slider.onchange = function () {
-//     output.innerHTML = this.value;
-// }
-
-slider.addEventListener("input", function () {
+fsRange.addEventListener("input", function () {
     listener();
-    slider.addEventListener("change", listener);
+    fsRange.addEventListener("change", listener);
 });
-slider.addEventListener("change", function () {
+fsRange.addEventListener("change", function () {
     listener();
-    slider.removeEventListener("input", listener);
-}); 
+    fsRange.removeEventListener("input", listener);
+});
 
 function listener() {
-    output.innerHTML = slider.value;
-    document.getElementById("demo").style.fontSize=slider.value+"px";
-    
+    // document.getElementById("rfs").innerHTML = fsRange.value;
+    document.getElementById("demo").style.fontSize = fsRange.value + "px";
 }

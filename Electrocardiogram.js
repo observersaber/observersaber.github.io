@@ -1,19 +1,39 @@
-var svg1 = document.getElementById('svg1').getElementsByTagName("path")[0];
-var svgob = svg1.getAttribute('d').split(' ');
-var svgVariable = 0;
-var updown = true;
+var eltd = document.getElementById('eltd').getElementsByTagName("path")[0];
+var eltdD = eltd.getAttribute('d').split(' ');
+var eltdUL = 0;
+var eltdUD = true;
+
+var yee = 0, yeee = true ,xxx;
 
 document.addEventListener('keypress', function () {
-    if (svgVariable <= 4) {
-        svgVariable += 1;
+    if (eltdUL <= 5) {
+        eltdUL += 1;
     }
-    (updown == true) ? updown = false : updown = true;
+    eltdUD = (eltdUD == true) ? false : true;
+
+    yee = eltdD.length - 1;
+
+    if (yeee == true) {
+        
+        yeee = false;
+        xxx = setInterval(sss, 50);
+    }
 })
-var sss = setInterval(function () {
-    for (var i = svgob.length - 1, y = i - 2, item; item = svgob[y - 1]; i -= 2, y -= 2) {
-        svgob[i] = svgob[y]
+
+function sss() {
+    for (var i = eltdD.length - 1, item; item = eltdD[i - 5]; i -= 3) {
+        eltdD[i] = eltdD[i - 3]
     }
-    (updown == true) ? svgob[1] = 0 - svgVariable : svgob[1] = 0 + svgVariable;
-    svg1.setAttribute('d', svgob.join(' '));
-    svgVariable = 0;
-}, 50)
+
+    (eltdUD == true) ? eltdD[2] = 5 - eltdUL : eltdD[2] = 5 + eltdUL;
+
+    eltd.setAttribute('d', eltdD.join(' '));
+
+    eltdUL = 0;
+
+    
+    if (yee < 0) {
+        yeee = true;
+        clearInterval(xxx);
+    }else{yee -= 3;}
+}
