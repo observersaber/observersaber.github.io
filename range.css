@@ -1,6 +1,6 @@
 input[type=range] {
     -webkit-appearance: none;
-    width: 150px;
+    width: 60%;
     cursor: pointer;
 }
 

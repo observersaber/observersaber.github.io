@@ -11,5 +11,7 @@ fsRange.addEventListener("change", function () {
 
 function listener() {
     // document.getElementById("rfs").innerHTML = fsRange.value;
-    document.getElementById("demo").style.fontSize = fsRange.value + "px";
+    document.getElementsByClassName("main")[0].style.fontSize = fsRange.value + "px";
+    focPosition();
+    // document.getElementsByClassName
 }

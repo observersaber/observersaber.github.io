@@ -1,0 +1,278 @@
+html, body {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    color: #bbb;
+    background: #1d1f21;
+    transition: background .3s;
+    font-family: 'Source Code Pro', 'SourceCodePro', Arial, Helvetica, sans-serif;
+}
+
+.err {
+    color: #e05749;
+    background-color: #a133333f;
+}
+
+.foc {
+    background: #a0a0a03f;
+}
+
+.good {
+    color: #98c379;
+}
+
+#timing {
+    color: #bbb;
+    background: none;
+    font-size: 12px;
+}
+
+#headerIcon {
+    float: right;
+}
+
+#headerIcon>div {
+    margin: 10px;
+    float: left;
+}
+
+#PausePlay {
+    padding: 7px;
+    width: 45px;
+}
+
+#pause {
+    float: left;
+    position: relative;
+    height: 20px;
+    width: 0;
+    cursor: pointer;
+    transition: .3s;
+}
+
+#pause.show {
+    width: 18px;
+    margin-right: 8px;
+}
+
+#pause:after, #pause:before {
+    position: absolute;
+    content: '';
+    height: 100%;
+    width: 40%;
+    background-color: #aaa;
+    border-radius: 1%;
+}
+
+#pause:after {
+    left: 65%;
+}
+
+#pause:before {
+    left: 0;
+}
+
+#play {
+    float: left;
+    position: relative;
+    top: 0;
+    width: 0;
+    height: 0;
+    opacity: 1;
+    border-style: solid;
+    border-width: 10px 0 10px 18px;
+    border-color: transparent transparent transparent #aaa;
+    cursor: pointer;
+    transition: .3s;
+}
+
+#play.playing {
+    border-width: 3px 0 3px 18px;
+    top: 7px;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.main {
+    position: absolute;
+    width: 100%;
+    max-width: 700px;
+    top: 50%;
+    left: 1em;
+    right: 1em;
+    font-size: 18px;
+    line-height: 1.5em;
+    letter-spacing: .1em;
+    margin: auto;
+    margin-top: -1.5em;
+    vertical-align: middle;
+    padding: 0;
+    height: 3em;
+    overflow: hidden;
+}
+
+#demo {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    margin: 0;
+}
+
+.btn {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    padding: 10px;
+    border-radius: 3px;
+    font-size: 14px;
+    line-height: 1em;
+    background: none;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.3s
+}
+
+.btn:hover {
+    background: #92929240;
+}
+
+#reload {
+    color: #aaa;
+}
+
+.yee>i {
+    animation: spin .7s infinite linear;
+}
+
+@keyframes spin {
+    from {
+        transform: scale(1) rotate(0deg);
+    }
+    to {
+        transform: scale(1) rotate(360deg);
+    }
+}
+
+#modinput {
+    line-height: 3em;
+    min-width: 400px;
+    margin-left: 40px;
+    color: #e0e4e4;
+}
+
+#modinput input[type="text"] {
+    width: 80px;
+    margin-left: 1em;
+    font-size: .9em;
+    text-align: center;
+    color: #e0e4e4;
+    background: none;
+    border-bottom: 1.5px solid #e0e4e4;
+}
+
+#Make_box {
+    padding: 30px;
+}
+
+#timing {
+    font-size: 18px;
+    line-height: 1.9em;
+    font-family: arial;
+}
+
+#timing {
+    width: auto;
+}
+
+#wpm {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 250px;
+    padding: 20px;
+    background: #444;
+    line-height: 1.8em;
+    margin: auto;
+    margin-top: 5em;
+    opacity: .0;
+    transition: .5s;
+}
+
+#wpm>p {
+    font-size: 2em;
+    text-align: center
+}
+
+input[type="radio"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #999;
+    transition: 0.2s all linear;
+    outline: none;
+    margin-right: 5px;
+    position: relative;
+    top: 4px;
+}
+
+input[type="radio"]:checked {
+    border: 6px solid #fff;
+}
+
+#mod2:checked~#BitMM {
+    /* display: none; */
+    visibility: hidden
+}
+
+#countdown:checked~#BitControl {
+    visibility: hidden
+}
+
+#BColor {
+    display: none;
+}
+
+.toggle_BColor {
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
+    position: relative;
+    height: 30px;
+    width: 60px;
+    border-radius: 70px;
+    transition: all 250ms ease-in;
+    background-color: #1d1f21;
+}
+
+.toggle_BColor:before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    transition: all 250ms ease-in;
+    background-color: #fafafa;
+}
+
+#BColor:checked+.toggle_BColor {
+    background-color: #fafafa;
+}
+
+#BColor:checked+.toggle_BColor:before {
+    left: 35px;
+    background-color: #1d1f21;
+}
+
+#eltd {
+    width: 100px;
+}
