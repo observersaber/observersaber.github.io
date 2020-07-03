@@ -10,8 +10,6 @@ fsRange.addEventListener("change", function () {
 });
 
 function listener() {
-    // document.getElementById("rfs").innerHTML = fsRange.value;
     document.getElementsByClassName("main")[0].style.fontSize = fsRange.value + "px";
     focPosition();
-    // document.getElementsByClassName
 }
