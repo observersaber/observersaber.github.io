@@ -13,7 +13,7 @@
     <link rel="stylesheet" type="text/css" href="range.css">
     <link rel='stylesheet' type='text/css' href='main.css'>
     <style>
-        /* .key-wrapper {
+        .key-wrapper {
             font-family: 'PT Sans', sans-serif;
             color: #555;
             font-size: 15px;
@@ -45,7 +45,7 @@
             color: #0784C6;
             border-color: #0784C6;
             transition: .1s;
-        } */
+        }
     </style>
 </head>
 
@@ -91,19 +91,17 @@
         </nav>
         <div id='headerIcon'>
             <div id="reload" class="btn" type="button"><i class="icon-loop2"></i></div>
-            <!-- <div id="PausePlay">
+            <div id="PausePlay">
                 <div id="pause"></div>
                 <div id="play"></div>
-            </div> -->
+            </div>
             <div>
                 <span id="timing"></span>
             </div>
-
             <div id="Electrocardiogram">
                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 10" id="eltd" width="80"
                     height="40">
-                    <path style="fill:none;stroke:#aaa;stroke-width:.2;"
-                        d="M 0 5 L 1 5 L 2 5 L 3 5 L 4 5 L 5 5 L 6 5 L 7 5 L 8 5 L 9 5 L 10 5 L 11 5 L 12 5 L 13 5 L 14 5 L 15 5 L 16 5 L 17 5 L 18 5 L 19 5 L 20 5">
+                    <path style="fill:none;stroke:#aaa;stroke-width:.2;" d="M 0 5 L 1 5 L 2 5 L 3 5 L 4 5 L 5 5 L 6 5 L 7 5 L 8 5 L 9 5 L 10 5 L 11 5 L 12 5 L 13 5 L 14 5 L 15 5 L 16 5 L 17 5 L 18 5 L 19 5 L 20 5">
                 </svg>
             </div>
         </div>
@@ -112,7 +110,7 @@
         <p id="demo">
         </p>
     </div>
-    <!-- <div class="key-wrapper">
+    <div class="key-wrapper">
         <ul>
             <li id="k81">q</li>
             <li id="k87">w</li>
@@ -148,7 +146,7 @@
         <ul>
             <li id="k32">space</li>
         </ul>
-    </div> -->
+    </div>
     <div id="wpm">
         <p><span></span>WPM</p>
         <hr>
@@ -174,9 +172,12 @@
                 if (this._timer) { return; }
                 var me = this;
                 this._start = (new Date).getTime();
+                // this._timer = setInterval(function () {
+                //     me.display(me.input, ((((new Date).getTime() - me._start) + me._times) / 100 >> 0) / 10);
+                // }, 1000);
                 this._timer = setInterval(function () {
-                    me.display(me.input, ((((new Date).getTime() - me._start) + me._times) / 100 >> 0) / 10);
-                }, 1000);
+                    me.display(me.input, (((new Date).getTime() - me._start) + me._times) / 1000 >> 0);
+                }, 100);
                 document.getElementById('wpm').style.opacity = "";
             },
             pause: function () {
@@ -209,14 +210,16 @@
                         min = parseInt(val / 60) % 60,
                         s = (val >> 0) % 60 % 60;
 
+                    if (this._countdown == 'on' && val <= 0) {
+                        this.stop();
+                        SOS(false);
+                    }
+
+                    this.input.innerHTML = ((h == 0) ? "" : h + ":") + bitT(min) + ":" + bitT(s);
+
                     function bitT(e) {
                         e = e.toString();
                         return (e.length < 2) ? ("0" + e) : e
-                    }
-                    this.input.innerHTML = ((h == 0) ? "" : h + ":") + bitT(min) + ":" + bitT(s);
-                    if (this._countdown == 'on' && val == 0) {
-                        this.stop();
-                        SOS(false);
                     }
 
                 } else {
@@ -241,6 +244,7 @@
             wpm[3].innerHTML = z / verification.word.length * 100;
             document.getElementById('wpm').style.opacity = "1";
         }
+
     </script>
     <script>
         var demospan, dataarr, error;
@@ -259,10 +263,14 @@
         }
 
         function mod(e, cd) {
-
             document.getElementById('demo').style.marginTop = '0px';
             SOS(false);
             timer.reset();
+
+            for (y in error) {
+                document.getElementById(y).title = "";
+            }
+
             error = {};
             font = {
                 article: "",
@@ -276,7 +284,6 @@
             }
 
             verification.word[0] = "";
-
             if (e == 'mod1') {
                 var data = "abcdefghijklmnopqrstuvwxyz";
                 dataarr = [].slice.call(data);
@@ -288,7 +295,6 @@
                 control.article = (cd == 'on') ? 250 : document.getElementById("article").value;
                 control.min = control.max = 1;
             }
-
             if (control.max < control.min) { alert("請輸入正確數值"); return }
 
             font.word = new Array(control.article);
@@ -297,6 +303,7 @@
                 font.word[j] = "";
                 for (var i = 0; i < Math.floor(Math.random() * (control.max - control.min)) + control.min; i++) {
                     var x = Math.floor(Math.random() * dataarr.length);
+
                     font.word[j] += dataarr[x];
                 }
                 font.bit += font.word[j] + " ";
@@ -354,6 +361,16 @@
                 verification.t++
             } else {
                 demospan[x].className = "err";
+
+                var i = 'k' + font.bit[x].toUpperCase().charCodeAt();
+
+                error[i] = error[i] + 1 || 1;
+
+                document.getElementById(i).title = error[i];
+
+                // for (y in error) {
+                //     document.getElementById(y).title = error[y];
+                // }
             }
 
             if (font.bit.length - 2 > x) {
@@ -366,7 +383,6 @@
         }
 
         document.addEventListener('resize', position());
-
         function position() {
             document.getElementById('demo').style.marginTop = getPosition(document.getElementById('demo').getElementsByTagName('span')[0]).y - getPosition(document.getElementsByClassName('foc')[0]).y + 'px';
         }
@@ -423,14 +439,13 @@
                 }
             }
         })
-
     </script>
 
     <script>
         timer.display(document.getElementById('timing'));
     </script>
 
-    <!-- <script>
+    <script>
         document.addEventListener('click', function (e) {
             var e = e || window.event,
                 target = event.srcElement || event.target;
@@ -442,12 +457,11 @@
                 target.className = ''
             }
         })
-    </script> -->
-
+    </script>
     <script src="menu.js"></script>
     <script src="ranje.js"></script>
     <script src="Electrocardiogram.js"></script>
-    <!-- <script src="keybord.js"></script> -->
+    <script src="keybord.js"></script>
 </body>
 
 </html>
