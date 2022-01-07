@@ -1,113 +1,46 @@
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
 small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
 dl, dt, dd, ol, ul, li,
 fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
+table, caption, tbody, tfoot, thead, tr, th, td {
 	margin: 0;
 	padding: 0;
 	border: 0;
+	outline: 0;
+	font-weight: inherit;
+	font-style: inherit;
 	font-size: 100%;
-	font: inherit;
+	font-family: inherit;
 	vertical-align: baseline;
 }
-/* HTML5 display-role reset for older browsers */
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
-	display: block;
+/* remember to define focus styles! */
+:focus {
+	outline: 0;
 }
 body {
 	line-height: 1;
+	color: black;
+	background: white;
 }
 ol, ul {
 	list-style: none;
 }
-blockquote, q {
-	quotes: none;
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+	border-collapse: separate;
+	border-spacing: 0;
+}
+caption, th, td {
+	text-align: left;
+	font-weight: normal;
 }
 blockquote:before, blockquote:after,
 q:before, q:after {
-	content: '';
-	content: none;
+	content: "";
 }
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
+blockquote, q {
+	quotes: "" "";
 }
-
-
-/*yee*/
-#bg-header{
-	opacity:0;width:100%;height:40px;
-	background-color:rgba(242,242,240,0.9);
-	-webkit-transition:opacity 0.2s ease-out;
-	transition:opacity 0.2s ease-out
-}
-#bg-header.active{opacity:1}
-@media (min-width: 768px){
-	#bg-header{height:60px}
-}
-@media (min-width: 1024px){
-	#bg-header{height:80px}
-}
-@media (min-width: 1680px){
-	#bg-header{height:90px}
-}
-#content{background-color:#f2f2f0}
-.page-template-page-philosophy #content,
-.page-template-page-approach #content,
-.page-template-page-history #content{
-	background-color:#000
-}
-#bg-header{
-	opacity:0;
-	background-color:rgba(242,242,240,0.9);-webkit-transition:opacity 0.1s ease-out;
-	transition:opacity 0.1s ease-out
-}
-#bg-header .menu-gradient{
-	opacity:0;background-image:url(../images/menu-gradient.png);
-	background-repeat:no-repeat;background-size:contain;background-repeat:repeat-x;
-	width:100%;height:100px
-}
-#bg-header.active{opacity:1}
-#bg-submenu{display:none;visibility:hidden;opacity:0;background-color:rgba(242,242,240,0.9)}
-#menu .sub-nav li:before{color:#4A4A4A}
-#menu .sub-nav li a{color:#4A4A4A}
-#menu .sub-nav li a:hover{color:#4A4A4A}
-#menu .sub-nav li.current-menu-item a{color:#4A4A4A}
-#menu .sub-nav li.current-menu-item:before{color:#4A4A4A}
-.desktop #bg-submenu{
-	display:block;top:80px;width:100%;height:100%;
-	-webkit-transition:opacity 0.3s ease-out;transition:opacity 0.3s ease-out;
-	visibility:visible;pointer-events:none
-}
-@media (min-width: 1680px){
-	.desktop #bg-submenu{top:90px}
-}
-.desktop.on-top-hero-image #bg-submenu{background-color:rgba(0,0,0,0.5);top:0px}
-@media (min-width: 1680px){.desktop.on-top-hero-image #bg-submenu{top:0px}}
-.desktop.over-submenu #bg-submenu.active{opacity:1}
-.desktop.over-submenu.on-top-hero-image #bg-submenu{background-color:rgba(0,0,0,0.5);top:0px}
-@media (min-width: 1680px){.desktop.over-submenu.on-top-hero-image #bg-submenu{top:0px}}
-.page-template-page-philosophy #bg-submenu,
-.page-template-page-approach #bg-submenu,
-.page-template-page-history #bg-submenu{background-color:rgba(0,0,0,0.5);top:0px}
-@media (min-width: 1680px){
-	.page-template-page-philosophy #bg-submenu,
-	.page-template-page-approach #bg-submenu,
-	.page-template-page-history #bg-submenu{top:0px}
-}
-.page-template-page-philosophy #bg-header,
-.page-template-page-approach #bg-header,
-.page-template-page-history #bg-header{background-color:transparent}
-.page-template-page-philosophy #bg-header .menu-gradient,.page-template-page-approach #bg-header .menu-gradient,
-.page-template-page-history #bg-header .menu-gradient{opacity:1}
-
-input,*:focus,button{outline:none;border:0}

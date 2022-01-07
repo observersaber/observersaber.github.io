@@ -7,440 +7,72 @@
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel='stylesheet' id='Reset-css' href='Reset.css' type='text/css' media='all' />
     <link rel="stylesheet" type="text/css" href="src/style.css">
-    <link rel="stylesheet" type="text/css" href="Reset.css">
-    <link rel="stylesheet" type="text/css" href="menu.css">
-    <link rel="stylesheet" type="text/css" href="range.css">
-    <link rel='stylesheet' type='text/css' href='main.css'>
-    <style>
-        .key-wrapper {
-            font-family: 'PT Sans', sans-serif;
-            color: #555;
-            font-size: 15px;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            margin: 3em -294px;
-            text-align: center;
-        }
-
-        .key-wrapper li {
-            width: 50px;
-            height: 50px;
-            border: 2px solid;
-            border-color: #444;
-            border-radius: 5px;
-            display: inline-block;
-            line-height: 50px;
-            text-align: center;
-            text-transform: uppercase;
-            transition: .3s ease-in;
-        }
-
-        #k32 {
-            width: 347px;
-        }
-
-        .key-wrapper li.active {
-            color: #0784C6;
-            border-color: #0784C6;
-            transition: .1s;
-        }
-    </style>
+    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="menu.css">
 </head>
-<body>
-    <header>
-        <nav id="menu">
-            <div id="menu_icon_box">
-                <a id="menu_icon">
-                    <i class="menu_icon_top"></i>
-                    <i class="menu_icon_middle"></i>
-                    <i class="menu_icon_bottom"></i>
-                </a>
-            </div>
-            <div id="menu_box">
-                <div class="Make_box">
-                    <div>
-                        <form id="modinput">
-                            <input type="radio" name="mod" id="mod1" value="mod1" checked><label for="mod1">隨機字母</label>
-                            <input type="radio" name="mod" id="mod2" value="mod2"><label for="mod2">英文單字</label><br>
-                            <input type="checkbox" id="countdown" name="countdown"><label
-                                for="countdown">啟用倒計時一分鐘</label>
-                            <div id="BitControl">
-                                字串總字數:<input type="text" name="article" value="90" id="article"
-                                    oninput="value=value.replace(/[^\d]/g,'')"><br>
-                            </div>
-                            <div id="BitMM">
-                                最小字元:<input type="text" name="min" value="2" id="min"
-                                    oninput="value=value.replace(/[^\d]/g,'')"><br>
-                                最大字元:<input type="text" name="max" value="6" id="max"
-                                    oninput="value=value.replace(/[^\d]/g,'')">
-                            </div>
-                            <button type="submit" class="btn">set up</button>
-                            <div>背景模式</div>
-                            <input type="checkbox" id="BColor"><label class="toggle_BColor" for="BColor"></label>
-                            <div>字體大小</div>
-                            <input type="range" min="12" max="30" value="18" class="slider" id="fsRange">
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </nav>
-        <div id='headerIcon'>
-            <div id="reload" class="btn" type="button"><i class="icon-loop2"></i></div>
-            <div id="PausePlay">
-                <div id="pause"></div>
-                <div id="play"></div>
-            </div>
-            <div>
-                <span id="timing"></span>
-            </div>
-            <div id="Electrocardiogram">
-                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 10" id="eltd" width="80"
-                    height="40">
-                    <path style="fill:none;stroke:#aaa;stroke-width:.2;"
-                        d="M 0 5 L 1 5 L 2 5 L 3 5 L 4 5 L 5 5 L 6 5 L 7 5 L 8 5 L 9 5 L 10 5 L 11 5 L 12 5 L 13 5 L 14 5 L 15 5 L 16 5 L 17 5 L 18 5 L 19 5 L 20 5">
-                </svg>
-            </div>
+
+<body class="dark">
+    <nav id="menu">
+        <div id="menu_icon_box">
+            <a id="menu_icon">
+                <i class="menu_icon_top"></i>
+                <i class="menu_icon_middle"></i>
+                <i class="menu_icon_bottom"></i>
+            </a>
         </div>
-    </header>
-    <div class="main">
-        <p id="demo">
-        </p>
+        <div id="menu_box">
+            <form id="modinput">
+                <input type="radio" name="mod" id="mod1" value="mod1" checked><label for="mod1">英文單字</label>
+                <input type="radio" name="mod" id="mod2" value="mod2"><label for="mod2">隨機字母</label><br>
+                <input type="radio" name="mod" id="mod3" value="mod3"><label for="mod3">中文單辭</label><br>
+                <label for="countdown">倒計時模式(一分鐘)</label><input type="checkbox" id="countdown" name="countdown"
+                    checked="checked">
+                <div id="BitControl">
+                    字串總字數:<input type="text" name="article" value="90" id="article"
+                        oninput="value=value.replace(/[^\d]/g,'')"><br>
+                </div>
+                <div id="BitMM">
+                    最小字元:<input type="text" name="min" value="2" id="min"
+                        oninput="value=value.replace(/[^\d]/g,'');if(value>20)value=20;if(value<1)value=1"><br>
+                    最大字元:<input type="text" name="max" value="6" id="max"
+                        oninput="value=value.replace(/[^\d]/g,'');if(value>20)value=20;if(value<1)value=1">
+                </div>
+                <input type="submit" class="btn" value="set up">
+
+                <div class="flexCenter">
+                    <span>背景模式</span>
+                    <input type="checkbox" id="BColor">
+                    <label class="toggle_BColor" for="BColor"></label>
+                </div>
+                <div>
+                    <span>文字大小</span>
+                    <input type="range" min="12" max="30" value="20" class="slider" id="fsRange">
+                </div>
+            </form>
+        </div>
+    </nav>
+    <div id='headerIcon'>
+        <div id="Electrocardiogram">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 10" id="eltd" width="80" height="40">
+                <path style="fill:none;stroke:#aaa;stroke-width:.2;"
+                    d="M 0 5 L 1 5 L 2 5 L 3 5 L 4 5 L 5 5 L 6 5 L 7 5 L 8 5 L 9 5 L 10 5 L 11 5 L 12 5 L 13 5 L 14 5 L 15 5 L 16 5 L 17 5 L 18 5 L 19 5 L 20 5">
+            </svg>
+        </div>
+        <div id="timing"></div>
+        <div id="PausePlay"><div id="pause"></div><div id="play"></div></div>
+        <div id="reload" type="button"><i class="icon-loop2"></i></div>
     </div>
-    <div class="key-wrapper">
-        <ul>
-            <li id="k81">q</li>
-            <li id="k87">w</li>
-            <li id="k69">e</li>
-            <li id="k82">r</li>
-            <li id="k84">t</li>
-            <li id="k89">y</li>
-            <li id="k85">u</li>
-            <li id="k73">i</li>
-            <li id="k79">o</li>
-            <li id="k80">p</li>
-        </ul>
-        <ul>
-            <li id="k65">a</li>
-            <li id="k83">s</li>
-            <li id="k68">d</li>
-            <li id="k70">f</li>
-            <li id="k71">g</li>
-            <li id="k72">h</li>
-            <li id="k74">j</li>
-            <li id="k75">k</li>
-            <li id="k76">l</li>
-        </ul>
-        <ul>
-            <li id="k90">z</li>
-            <li id="k88">x</li>
-            <li id="k67">c</li>
-            <li id="k86">v</li>
-            <li id="k66">b</li>
-            <li id="k78">n</li>
-            <li id="k77">m</li>
-        </ul>
-        <ul>
-            <li id="k32">space</li>
-        </ul>
+    <div id="main" class="focus">
+        <p id="demo"></p>
     </div>
-    <div id="wpm">
-        <p><span></span>WPM</p>
-        <hr>
-        正確字數：<span></span><br>
-        錯誤字數：<span></span><br>
-        錯誤率：<span></span>%
-    </div>
+    <div id="wpm" style="display:none"></div>
 
-    <script>
-        var timer = {
-            _countdown: null,
-            _times: 0,
-            _start: 0,
-            _timer: null,
-            _clearInterval: function () {
-                if (this._timer) {
-                    this._timer = clearInterval(this._timer);
-                    this._times += (new Date).getTime() - this._start;
-                }
-            },
-            onStop: null,
-            start: function () {
-                if (this._timer) { return; }
-                var me = this;
-                this._start = (new Date).getTime();
-                // this._timer = setInterval(function () {
-                //     me.display(me.input, ((((new Date).getTime() - me._start) + me._times) / 100 >> 0) / 10);
-                // }, 1000);
-                this._timer = setInterval(function () {
-                    me.display(me.input, (((new Date).getTime() - me._start) + me._times) / 1000 >> 0);
-                }, 100);
-                document.getElementById('wpm').style.opacity = "";
-            },
-            pause: function () {
-                this._clearInterval();
-                SOS(false);
-            },
-            stop: function () {
-                this._clearInterval();
-                if (this.onStop instanceof Function) {
-                    this.onStop();
-                }
-                wpm(this._times);
-            },
-            reset: function () {
-                this._clearInterval();
-                this._times = 0;
-                this.display(this.input, 0);
-            },
-            display: function (el, val) {
-                if (!this.input) {
-                    // if (!el || 'input' != el.tagName.toLowerCase()) { return; }
-                    this.input = el;
-                }
-                if (val) {
-                    if (this._countdown == 'on') val = 60 - val;
-
-                    var h = parseInt(val / 60 / 60),
-                        min = parseInt(val / 60) % 60,
-                        s = (val >> 0) % 60 % 60;
-                    
-                    if (this._countdown == 'on' && val <= 0) {
-                        this.stop();
-                        SOS(false);
-                    }
-
-                    this.input.innerHTML = ((h == 0) ? "" : h + ":") + bitT(min) + ":" + bitT(s);
-                    function bitT(e) {
-                        e = e.toString();
-                        return (e.length < 2) ? ("0" + e) : e
-                    }
-                } else {
-                    this.input.innerHTML = (this._countdown == null) ? "00:00" : "01:00";
-                }
-            }
-        }
-        function wpm(times) {
-            var wpm = document.getElementById('wpm').getElementsByTagName('span');
-            var y = z = 0;
-            for (var i = 0, item; item = verification.word[i]; i++) {
-                if (font.word[i] == verification.word[i]) {
-                    y++;
-                } else if (font.word[i] != verification.word[i]) {
-                    z++;
-                }
-            }
-            wpm[0].innerHTML = (verification.t / 5 / (times / 1000) * 60) >> 0;
-            wpm[1].innerHTML = y;
-            wpm[2].innerHTML = z;
-            wpm[3].innerHTML = z / verification.word.length * 100;
-            document.getElementById('wpm').style.opacity = "1";
-        }
-    </script>
-    <script>
-        var demospan, dataarr, error;
-        var control = {
-            article: 0,
-            min: 0,
-            max: 0
-        }, font = {
-            article: "",
-            word: "",
-            bit: ""
-        }, verification = {
-            word: [],
-            bit: "",
-            t: 0
-        }
-
-        function mod(e, cd) {
-            document.getElementById('demo').style.marginTop = '0px';
-            SOS(false);
-            timer.reset();
-            for (y in error) {
-                document.getElementById(y).title = "";
-            }
-            error = {};
-            font = {
-                article: "",
-                bit: ""
-            }
-            verification = {
-                word: [],
-                bit: "",
-                t: 0
-            }
-            verification.word[0] = "";
-            if (e == 'mod1') {
-                var data = "abcdefghijklmnopqrstuvwxyz";
-                dataarr = [].slice.call(data);
-                control.article = (cd == 'on') ? 300 : document.getElementById("article").value;
-                control.min = parseInt(document.getElementById("min").value);
-                control.max = parseInt(document.getElementById("max").value) + 1;
-            } else if (e == 'mod2') {
-                dataarr = ["as", "are", "at", "and", "a", "an", "add", "air", "also", "act", "ask", "able", "about", "above", "afraid", "after", "again", "against", "age", "ago", "agree", "all", "allow", "always", "am", "among", "anger", "animal", "answer", "any", "appear", "apple", "area", "arm", "arrange", "arrive", "art", "atom", "but", "be", "by", "big", "baby", "back", "bad", "ball", "band", "bank", "bar", "base", "basic", "bat", "bear", "beat", "beauty", "bed", "been", "before", "began", "begin", "behind", "believe", "bell", "best", "better", "between", "bird", "bit", "black", "block", "blood", "blow", "blue", "board", "boat", "body", "bone", "book", "born", "both", "bottom", "bought", "box", "boy", "branch", "bread", "break", "bright", "bring", "broad", "broke", "brother", "brought", "brown", "build", "burn", "busy", "buy", "can", "call", "came", "camp", "capital", "captain", "car", "card", "care", "carry", "case", "cat", "catch", "caught", "cause", "cell", "cent", "center", "century", "certain", "chair", "chance", "change", "character", "charge", "chart", "check", "chick", "chief", "child", "children", "choose", "chord", "circle", "city", "claim", "class", "clean", "clear", "climb", "clock", "close", "clothe", "cloud", "coast", "coat", "cold", "collect", "colony", "color", "column", "come", "common", "company", "compare", "complete", "condition", "connect", "consider", "consonant", "contain", "continent", "continue", "control", "cook", "cool", "copy", "corn", "corner", "correct", "cost", "cotton", "could", "count", "country", "course", "cover", "cow", "crease", "create", "crop", "cross", "crowd", "cry", "current", "cut", "do", "does", "dad", "dance", "danger", "dark", "day", "dead", "deal", "dear", "death", "decide", "decimal", "deep", "degree", "depend", "describe", "desert", "design", "determine", "develop", "dictionary", "did", "die", "differ", "difficult", "direct", "discuss", "distant", "divide", "division", "doctor", "dog", "dollar", "done", "door", "double", "down", "draw", "dream", "dress", "drink", "drive", "drop", "dry", "duck", "during", "each", "even", "end", "ear", "early", "earth", "ease", "east", "eat", "edge", "effect", "egg", "eight", "either", "electric", "element", "else", "enemy", "energy", "engine", "enough", "enter", "equal", "equate", "especially", "evening", "event", "ever", "every", "exact", "example", "except", "excite", "exercise", "expect", "experience", "experiment", "eye", "for", "from", "follow", "face", "fact", "fair", "fall", "family", "famous", "far", "farm", "fast", "fat", "father", "favor", "fear", "feed", "feel", "feet", "fell", "felt", "few", "field", "fig", "fight", "figure", "fill", "final", "find", "fine", "finger", "finish", "fire", "first", "fish", "fit", "five", "flat", "floor", "flow", "flower", "fly", "food", "foot", "force", "forest", "form", "forward", "found", "four", "fraction", "free", "fresh", "friend", "front", "fruit", "full", "fun", "game", "garden", "gas", "gather", "gave", "general", "gentle", "get", "girl", "give", "glad", "glass", "go", "gold", "gone", "good", "got", "govern", "grand", "grass", "gray", "great", "green", "grew", "ground", "group", "grow", "guess", "guide", "gun", "he", "his", "have", "hot", "had", "how", "here", "high", "home", "hand", "hair", "half", "happen", "happy", "hard", "has", "hat", "head", "hear", "heard", "heart", "heat", "heavy", "held", "help", "her", "hill", "him", "history", "hit", "hold", "hole", "hope", "horse", "hour", "house", "huge", "human", "hundred", "hunt", "hurry", "it", "is", "in", "if", "ice", "idea", "imagine", "inch", "include", "indicate", "industry", "insect", "instant", "instrument", "interest", "invent", "iron", "island", "lady", "lake", "land", "language", "large", "last", "late", "laugh", "law", "lay", "lead", "learn", "least", "leave", "led", "left", "leg", "length", "less", "let", "letter", "level", "lie", "life", "lift", "light", "like", "line", "liquid", "list", "listen", "little", "live", "locate", "log", "lone", "long", "look", "lost", "lot", "loud", "love", "low", "job", "join", "joy", "jump", "just", "keep", "kept", "key", "kill", "kind", "king", "knew", "know", "land", "large", "must", "machine", "made", "magnet", "main", "major", "make", "man", "many", "map", "mark", "market", "mass", "master", "match", "material", "matter", "may", "me", "mean", "meant", "measure", "meat", "meet", "melody", "men", "metal", "method", "middle", "might", "mile", "milk", "million", "mind", "mine", "minute", "miss", "mix", "modern", "molecule", "moment", "money", "month", "moon", "more", "morning", "most", "mother", "motion", "mount", "mountain", "mouth", "move", "much", "multiply", "music", "my", "name", "nation", "natural", "nature", "near", "necessary", "neck", "need", "neighbor", "never", "new", "next", "night", "nine", "no", "noise", "noon", "nor", "north", "nose", "note", "nothing", "notice", "noun", "now", "number", "numeral", "one", "on", "or", "of", "out", "other", "object", "observe", "occur", "ocean", "off", "offer", "office", "often", "oh", "oil", "old", "once", "only", "open", "operate", "opposite", "order", "organ", "original", "our", "over", "own", "oxygen", "play", "port", "put", "page", "paint", "pair", "paper", "paragraph", "parent", "part", "particular", "party", "pass", "past", "path", "pattern", "pay", "people", "perhaps", "period", "person", "phrase", "pick", "picture", "piece", "pitch", "place", "plain", "plan", "plane", "planet", "plant", "please", "plural", "poem", "point", "poor", "populate", "pose", "position", "possible", "post", "pound", "power", "practice", "prepare", "present", "press", "pretty", "print", "probable", "problem", "process", "produce", "product", "proper", "property", "protect", "prove", "provide", "pull", "push", "quart", "question", "quick", "quiet", "quite", "quotient", "read", "race", "radio", "rail", "rain", "raise", "ran", "range", "rather", "reach", "ready", "real", "reason", "receive", "record", "red", "region", "remember", "repeat", "reply", "represent", "require", "rest", "result", "rich", "ride", "right", "ring", "rise", "river", "road", "rock", "roll", "room", "root", "rope", "rose", "round", "row", "rub", "rule", "run", "some", "said", "set", "spell", "small", "such", "safe", "sail", "salt", "same", "sand", "sat", "save", "saw", "say", "scale", "school", "science", "score", "sea", "search", "season", "seat", "second", "section", "see", "seed", "seem", "segment", "select", "self", "sell", "send", "sense", "sent", "sentence", "separate", "serve", "settle", "seven", "several", "shall", "shape", "share", "sharp", "she", "sheet", "shell", "shine", "ship", "shoe", "shop", "shore", "short", "should", "shoulder", "shout", "show", "side", "sight", "sign", "silent", "silver", "similar", "simple", "since", "sing", "single", "sister", "sit", "six", "size", "skill", "skin", "sky", "slave", "sleep", "slip", "slow", "smell", "smile", "snow", "so", "soft", "soil", "soldier", "solution", "solve", "son", "song", "soon", "sound", "south", "space", "speak", "special", "speech", "speed", "spend", "spoke", "spot", "spread", "spring", "square", "stand", "star", "start", "state", "station", "stay", "stead", "steam", "steel", "step", "stick", "still", "stone", "stood", "stop", "store", "story", "straight", "strange", "stream", "street", "stretch", "string", "strong", "student", "study", "subject", "substance", "subtract", "success", "sudden", "suffix", "sugar", "suggest", "suit", "summer", "sun", "supply", "support", "sure", "surface", "surprise", "swim", "syllable", "symbol", "system", "they", "that", "this", "the", "to", "their", "time", "tell", "three", "table", "tail", "take", "talk", "tall", "teach", "team", "teeth", "temperature", "ten", "term", "test", "than", "thank", "them", "then", "there", "these", "thick", "thin", "thing", "think", "third", "those", "though", "thought", "thousand", "through", "throw", "thus", "tie", "tiny", "tire", "together", "told", "tone", "too", "took", "tool", "top", "total", "touch", "toward", "town", "track", "trade", "train", "travel", "tree", "triangle", "trip", "trouble", "truck", "true", "try", "tube", "turn", "twenty", "two", "type", "under", "unit", "until", "up", "us", "use", "usual", "valley", "value", "vary", "verb", "very", "view", "village", "visit", "voice", "vowel", "with", "what", "was", "word", "we", "were", "which", "will", "want", "well", "why", "wait", "walk", "wall", "war", "warm", "wash", "watch", "water", "wave", "way", "wear", "weather", "week", "weight", "went", "west", "wheel", "when", "where", "whether", "while", "white", "who", "whole", "whose", "wide", "wife", "wild", "win", "wind", "window", "wing", "winter", "wire", "wish", "woman", "women", "wonder", "wood", "work", "world", "would", "write", "written", "wrong", "wrote", "you", "yard", "year", "yellow", "yes", "yet", "young", "your"];
-                control.article = (cd == 'on') ? 250 : document.getElementById("article").value;
-                control.min = control.max = 1;
-            }
-            if (control.max < control.min) { alert("請輸入正確數值"); return }
-
-            font.word = new Array(control.article);
-
-            for (var j = 0; j < control.article; j++) {
-                font.word[j] = "";
-                for (var i = 0; i < Math.floor(Math.random() * (control.max - control.min)) + control.min; i++) {
-                    var x = Math.floor(Math.random() * dataarr.length);
-
-                    font.word[j] += dataarr[x];
-                }
-                font.bit += font.word[j] + " ";
-            }
-            font.bit = [].slice.call(font.bit);
-
-            for (var i = 0, item; item = font.bit[i]; i++) {
-                doem = font.arrticle;
-                font.article += "<span>" + font.bit[i] + "</span>"
-            }
-            document.getElementById("demo").innerHTML = font.article;
-            demospan = document.getElementById('demo').getElementsByTagName("span")
-            demospan[0].className = "foc";
-        }
-
-        document.addEventListener("DOMContentLoaded", function () {
-            mod('mod1');
-            SOS(true);
-        })
-
-        window.addEventListener("blur", function () {
-            timer.pause();
-        })
-        window.addEventListener("focus", function () {
-            SOS(true)
-        })
-
-        function SOS(e) {
-            if (e) {
-                document.addEventListener('keypress', input)
-                document.addEventListener('keydown', backspace)
-            } else {
-                document.removeEventListener('keypress', input)
-                document.removeEventListener('keydown', backspace)
-            }
-        }
-
-        function input(e) {
-            timer.start();
-            var e = e || window.event;
-            e.preventDefault();
-            verification.bit += String.fromCharCode(event.keyCode);
-            var x = verification.bit.length - 1;
-
-            if (font.bit[x] == " ") {
-                verification.word[verification.word.length] = "";
-            } else {
-                verification.word[verification.word.length - 1] += String.fromCharCode(event.keyCode);
-            }
-
-            if (String.fromCharCode(event.keyCode) == font.bit[x]) {
-                demospan[x].className = "good";
-                verification.t++
-            } else {
-                demospan[x].className = "err";
-                var i = 'k' + font.bit[x].toUpperCase().charCodeAt();
-                error[i] = error[i] + 1 || 1;
-                document.getElementById(i).title = error[i];
-
-                // for (y in error) {
-                //     document.getElementById(y).title = error[y];
-                // }
-            }
-
-            if (font.bit.length - 2 > x) {
-                demospan[x + 1].className = "foc";
-                position()
-            } else {
-                timer.stop();
-                SOS(false);
-            }
-        }
-        document.addEventListener('resize', position());
-        function position() {
-            document.getElementById('demo').style.marginTop = getPosition(document.getElementById('demo').getElementsByTagName('span')[0]).y - getPosition(document.getElementsByClassName('foc')[0]).y + 'px';
-        }
-
-        function getPosition(element) {
-            var y = 0;
-            while (element) {
-                y += element.offsetTop - element.scrollLeft + element.clientTop;
-                element = element.offsetParent
-            }
-            return { y: y }
-        }
-
-        function backspace(e) {
-            var e = e || window.event;
-            var x = verification.bit.length - 1;
-            var y = verification.word.length - 1;
-            if (e.keyCode === 8 && x >= 0) {
-                e.preventDefault();
-                demospan[x + 1].className = "";
-                demospan[x].className = "foc";
-                verification.bit = verification.bit.substr(0, x);
-                if (font.bit[x] == " ") {
-                    verification.word.splice(y, 1);
-                } else {
-                    verification.word[y] = verification.word[y].substr(0, verification.word[y].length - 1)
-                }
-                position()
-            }
-        }
-        
-        document.getElementById('reload').addEventListener('click', function () {
-            mod();
-            SOS(true);
-        })
-        var form = document.getElementById('modinput');
-
-        form.addEventListener("submit", function (e) {
-            e.preventDefault();
-            var data = new FormData(form);
-            mod(data.get('mod'), timer._countdown = data.get('countdown'))
-        })
-
-        form.addEventListener("click", function (e) {
-            var e = e || window.event,
-                target = event.srcElement || event.target;
-            if (target.id == 'BColor') {
-                if (target.checked) {
-                    document.body.style.background = '#fafafa';
-                } else {
-                    document.body.style.background = '';
-                }
-            }
-        })
-    </script>
-
-    <script>
-        timer.display(document.getElementById('timing'));
-    </script>
-
-    <script>
-        document.addEventListener('click', function (e) {
-            var e = e || window.event,
-                target = event.srcElement || event.target;
-            if (target.id == "play") {
-                target.className = 'playing'
-                document.getElementById('pause').className += "show";
-            } else if (target.id == "pause") {
-                document.getElementById('play').className = ''
-                target.className = ''
-            }
-        })
-    </script>
+    <script src="time.js"></script>
     <script src="menu.js"></script>
-    <script src="ranje.js"></script>
+    <script src="getData.js"></script>
+    <script src="key.js"></script>
     <script src="Electrocardiogram.js"></script>
-    <script src="keybord.js"></script>
 </body>
 </html>
