@@ -38,7 +38,7 @@
         }
 
         #k32 {
-            width: 346px;
+            width: 347px;
         }
 
         .key-wrapper li.active {
@@ -48,7 +48,6 @@
         }
     </style>
 </head>
-
 <body>
     <header>
         <nav id="menu">
@@ -65,10 +64,8 @@
                         <form id="modinput">
                             <input type="radio" name="mod" id="mod1" value="mod1" checked><label for="mod1">隨機字母</label>
                             <input type="radio" name="mod" id="mod2" value="mod2"><label for="mod2">英文單字</label><br>
-
                             <input type="checkbox" id="countdown" name="countdown"><label
                                 for="countdown">啟用倒計時一分鐘</label>
-
                             <div id="BitControl">
                                 字串總字數:<input type="text" name="article" value="90" id="article"
                                     oninput="value=value.replace(/[^\d]/g,'')"><br>
@@ -101,7 +98,8 @@
             <div id="Electrocardiogram">
                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 10" id="eltd" width="80"
                     height="40">
-                    <path style="fill:none;stroke:#aaa;stroke-width:.2;" d="M 0 5 L 1 5 L 2 5 L 3 5 L 4 5 L 5 5 L 6 5 L 7 5 L 8 5 L 9 5 L 10 5 L 11 5 L 12 5 L 13 5 L 14 5 L 15 5 L 16 5 L 17 5 L 18 5 L 19 5 L 20 5">
+                    <path style="fill:none;stroke:#aaa;stroke-width:.2;"
+                        d="M 0 5 L 1 5 L 2 5 L 3 5 L 4 5 L 5 5 L 6 5 L 7 5 L 8 5 L 9 5 L 10 5 L 11 5 L 12 5 L 13 5 L 14 5 L 15 5 L 16 5 L 17 5 L 18 5 L 19 5 L 20 5">
                 </svg>
             </div>
         </div>
@@ -186,7 +184,6 @@
             },
             stop: function () {
                 this._clearInterval();
-
                 if (this.onStop instanceof Function) {
                     this.onStop();
                 }
@@ -202,32 +199,28 @@
                     // if (!el || 'input' != el.tagName.toLowerCase()) { return; }
                     this.input = el;
                 }
-
                 if (val) {
                     if (this._countdown == 'on') val = 60 - val;
 
                     var h = parseInt(val / 60 / 60),
                         min = parseInt(val / 60) % 60,
                         s = (val >> 0) % 60 % 60;
-
+                    
                     if (this._countdown == 'on' && val <= 0) {
                         this.stop();
                         SOS(false);
                     }
 
                     this.input.innerHTML = ((h == 0) ? "" : h + ":") + bitT(min) + ":" + bitT(s);
-
                     function bitT(e) {
                         e = e.toString();
                         return (e.length < 2) ? ("0" + e) : e
                     }
-
                 } else {
                     this.input.innerHTML = (this._countdown == null) ? "00:00" : "01:00";
                 }
             }
         }
-
         function wpm(times) {
             var wpm = document.getElementById('wpm').getElementsByTagName('span');
             var y = z = 0;
@@ -244,7 +237,6 @@
             wpm[3].innerHTML = z / verification.word.length * 100;
             document.getElementById('wpm').style.opacity = "1";
         }
-
     </script>
     <script>
         var demospan, dataarr, error;
@@ -266,23 +258,19 @@
             document.getElementById('demo').style.marginTop = '0px';
             SOS(false);
             timer.reset();
-
             for (y in error) {
                 document.getElementById(y).title = "";
             }
-
             error = {};
             font = {
                 article: "",
                 bit: ""
             }
-
             verification = {
                 word: [],
                 bit: "",
                 t: 0
             }
-
             verification.word[0] = "";
             if (e == 'mod1') {
                 var data = "abcdefghijklmnopqrstuvwxyz";
@@ -314,7 +302,6 @@
                 doem = font.arrticle;
                 font.article += "<span>" + font.bit[i] + "</span>"
             }
-
             document.getElementById("demo").innerHTML = font.article;
             demospan = document.getElementById('demo').getElementsByTagName("span")
             demospan[0].className = "foc";
@@ -346,7 +333,6 @@
             timer.start();
             var e = e || window.event;
             e.preventDefault();
-
             verification.bit += String.fromCharCode(event.keyCode);
             var x = verification.bit.length - 1;
 
@@ -361,11 +347,8 @@
                 verification.t++
             } else {
                 demospan[x].className = "err";
-
                 var i = 'k' + font.bit[x].toUpperCase().charCodeAt();
-
                 error[i] = error[i] + 1 || 1;
-
                 document.getElementById(i).title = error[i];
 
                 // for (y in error) {
@@ -381,7 +364,6 @@
                 SOS(false);
             }
         }
-
         document.addEventListener('resize', position());
         function position() {
             document.getElementById('demo').style.marginTop = getPosition(document.getElementById('demo').getElementsByTagName('span')[0]).y - getPosition(document.getElementsByClassName('foc')[0]).y + 'px';
@@ -413,12 +395,11 @@
                 position()
             }
         }
-
+        
         document.getElementById('reload').addEventListener('click', function () {
             mod();
             SOS(true);
         })
-
         var form = document.getElementById('modinput');
 
         form.addEventListener("submit", function (e) {
@@ -430,7 +411,6 @@
         form.addEventListener("click", function (e) {
             var e = e || window.event,
                 target = event.srcElement || event.target;
-
             if (target.id == 'BColor') {
                 if (target.checked) {
                     document.body.style.background = '#fafafa';
@@ -463,5 +443,4 @@
     <script src="Electrocardiogram.js"></script>
     <script src="keybord.js"></script>
 </body>
-
 </html>
