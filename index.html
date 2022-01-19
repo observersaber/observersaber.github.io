@@ -5,16 +5,19 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title></title>
-    <meta name="description" content="">
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
     <link rel='stylesheet' id='Reset-css' href='Reset.css' type='text/css' media='all' />
     <link rel="stylesheet" type="text/css" href="src/style.css">
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="menu.css">
+    <link rel="stylesheet" href="mouse.css">
+    <link rel="stylesheet" href="keyboard.css">
 </head>
 
 <body class="dark">
-    <nav id="menu">
+    <aside id="menu">
         <div id="menu_icon_box">
             <a id="menu_icon">
                 <i class="menu_icon_top"></i>
@@ -24,55 +27,296 @@
         </div>
         <div id="menu_box">
             <form id="modinput">
-                <input type="radio" name="mod" id="mod1" value="mod1" checked><label for="mod1">英文單字</label>
-                <input type="radio" name="mod" id="mod2" value="mod2"><label for="mod2">隨機字母</label><br>
-                <input type="radio" name="mod" id="mod3" value="mod3"><label for="mod3">中文單辭</label><br>
-                <label for="countdown">倒計時模式(一分鐘)</label><input type="checkbox" id="countdown" name="countdown"
-                    checked="checked">
-                <div id="BitControl">
-                    字串總字數:<input type="text" name="article" value="90" id="article"
-                        oninput="value=value.replace(/[^\d]/g,'')"><br>
-                </div>
-                <div id="BitMM">
+                <input type="radio" name="mod" value="mod1" id="mod1" checked><label for="mod1">英文單字</label>
+                <input type="radio" name="mod" value="mod2" id="mod2"><label for="mod2">隨機字母</label>
+                <input type="radio" name="mod" value="mod3" id="mod3"><label for="mod3">中文單辭</label><br>
+
+                <div id="BitCount">
                     最小字元:<input type="text" name="min" value="2" id="min"
-                        oninput="value=value.replace(/[^\d]/g,'');if(value>20)value=20;if(value<1)value=1"><br>
+                        oninput="value=value.replace(/[^\d]/g,'');if(value>20)value=20;if(value<1)value=1"
+                        autocomplete="off"><br>
                     最大字元:<input type="text" name="max" value="6" id="max"
-                        oninput="value=value.replace(/[^\d]/g,'');if(value>20)value=20;if(value<1)value=1">
+                        oninput="value=value.replace(/[^\d]/g,'');if(value>20)value=20;if(value<1)value=1"
+                        autocomplete="off">
                 </div>
-                <input type="submit" class="btn" value="set up">
 
                 <div class="flexCenter">
-                    <span>背景模式</span>
+                    <input type="checkbox" id="countdown" name="countdown" checked="checked">
+                    <label for="countdown" class="countdownBox">
+                        <div class="one">計時模式</div>
+                        <div class="two">自訂字數: </div>
+                    </label>
+                    <div id="TimeCD">
+                        <span data-timeconfig="30">30</span>／<span data-timeconfig="60" class="selected">60</span>／<span
+                            data-timeconfig="120">120</span>／<span data-timeconfig="180">180</span>
+                    </div>
+                    <div id="WordCount">
+                        <input type="text" name="article" value="90" id="article"
+                            oninput="value=value.replace(/[^\d]/g,'')" autocomplete="off"><br>
+                    </div>
+                </div>
+
+                <input type="submit" class="btn" value="確認">
+                <div class="flexCenter">
+                    <span>背景顏色</span>
                     <input type="checkbox" id="BColor">
-                    <label class="toggle_BColor" for="BColor"></label>
+                    <label id="Bgcolor" for="BColor"></label>
                 </div>
                 <div>
                     <span>文字大小</span>
-                    <input type="range" min="12" max="30" value="20" class="slider" id="fsRange">
+                    <input type="range" min="14" max="34" value="18" class="slider" id="fsRange">
+                </div>
+                <div>
+                    <span>鍵盤顯示</span>
+                    <select id="keyboardMenu">
+                        <option value="1">無</option>
+                        <!-- <option value="2">一般</option> -->
+                        <option value="3">ch</option>
+                    </select>
                 </div>
             </form>
         </div>
-    </nav>
-    <div id='headerIcon'>
-        <div id="Electrocardiogram">
-            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 10" id="eltd" width="80" height="40">
-                <path style="fill:none;stroke:#aaa;stroke-width:.2;"
-                    d="M 0 5 L 1 5 L 2 5 L 3 5 L 4 5 L 5 5 L 6 5 L 7 5 L 8 5 L 9 5 L 10 5 L 11 5 L 12 5 L 13 5 L 14 5 L 15 5 L 16 5 L 17 5 L 18 5 L 19 5 L 20 5">
-            </svg>
+    </aside>
+    <main>
+        <div id="main" class="focus">
+            <p id="demo"></p>
         </div>
-        <div id="timing"></div>
-        <div id="PausePlay"><div id="pause"></div><div id="play"></div></div>
-        <div id="reload" type="button"><i class="icon-loop2"></i></div>
-    </div>
-    <div id="main" class="focus">
-        <p id="demo"></p>
-    </div>
-    <div id="wpm" style="display:none"></div>
+        <div id='headerIcon'>
+            <div id="Electrocardiogram">
+                <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 10" id="eltd" width="80"
+                    height="40">
+                    <path style="fill:none;stroke:#aaa;stroke-width:.2;"
+                        d="M 0 5 L 1 5 L 2 5 L 3 5 L 4 5 L 5 5 L 6 5 L 7 5 L 8 5 L 9 5 L 10 5 L 11 5 L 12 5 L 13 5 L 14 5 L 15 5 L 16 5 L 17 5 L 18 5 L 19 5 L 20 5">
+                </svg>
+            </div>
+            <div id="timing"></div>
+            <div id="PausePlay">
+                <div id="pause"></div>
+                <div id="play"></div>
+            </div>
+            <div id="reload" type="button"><i class="icon-loop2"></i></div>
+        </div>
+        <div id="wpm" style="display:none"></div>
+        <div id="alicekeyboard">
+            <div id="k27_0" class="key">
+                <div>ESC</div>
+            </div>
+            <div id="k33_0" class="key">
+                <div>PGUP</div>
+            </div>
+            <div id="k34_0" class="key">
+                <div>PGDN</div>
+            </div>
+            <div id="k36_0" class="key">
+                <div>HOME</div>
+            </div>
+            <div id="k35_0" class="key">
+                <div>END</div>
+            </div>
+            <div id="k192_0" class="key">
+                <div>~</div>
+            </div>
+            <div id="k49_0" class="key">
+                <div>1</div>
+            </div>
+            <div id="k50_0" class="key">
+                <div>2</div>
+            </div>
+            <div id="k51_0" class="key">
+                <div>3</div>
+            </div>
+            <div id="k52_0" class="key">
+                <div>4</div>
+            </div>
+            <div id="k53_0" class="key">
+                <div>5</div>
+            </div>
+            <div id="k54_0" class="key">
+                <div>6</div>
+            </div>
+            <div id="k55_0" class="key">
+                <div>7</div>
+            </div>
+            <div id="k56_0" class="key">
+                <div>8</div>
+            </div>
+            <div id="k57_0" class="key">
+                <div>9</div>
+            </div>
+            <div id="k48_0" class="key">
+                <div>0</div>
+            </div>
+            <div id="k189_0" class="key">
+                <div>-</div>
+            </div>
+            <div id="k187_0" class="key">
+                <div>=</div>
+            </div>
+            <div id="k8_0" class="key U200">
+                <div>Backspace</div>
+            </div>
+            <div id="k9_0" class="key U150">
+                <div>TAB</div>
+            </div>
+            <div id="k81_0" class="key">
+                <div>Q</div>
+            </div>
+            <div id="k87_0" class="key">
+                <div>W</div>
+            </div>
+            <div id="k69_0" class="key">
+                <div>E</div>
+            </div>
+            <div id="k82_0" class="key">
+                <div>R</div>
+            </div>
+            <div id="k84_0" class="key">
+                <div>T</div>
+            </div>
+            <div id="k89_0" class="key">
+                <div>Y</div>
+            </div>
+            <div id="k85_0" class="key">
+                <div>U</div>
+            </div>
+            <div id="k73_0" class="key">
+                <div>I</div>
+            </div>
+            <div id="k79_0" class="key">
+                <div>O</div>
+            </div>
+            <div id="k80_0" class="key">
+                <div>P</div>
+            </div>
+            <div id="k219_0" class="key">
+                <div>{</div>
+            </div>
+            <div id="k221_0" class="key">
+                <div>}</div>
+            </div>
+            <div id="k220_0" class="key U150">
+                <div>|</div>
+            </div>
+            <div id="k20_0" class="key U175">
+                <div>capslock</div>
+            </div>
+            <div id="k65_0" class="key">
+                <div>A</div>
+            </div>
+            <div id="k83_0" class="key">
+                <div>S</div>
+            </div>
+            <div id="k68_0" class="key">
+                <div>D</div>
+            </div>
+            <div id="k70_0" class="key">
+                <div>F</div>
+            </div>
+            <div id="k71_0" class="key">
+                <div>G</div>
+            </div>
+            <div id="k72_0" class="key">
+                <div>H</div>
+            </div>
+            <div id="k74_0" class="key">
+                <div>J</div>
+            </div>
+            <div id="k75_0" class="key">
+                <div>K</div>
+            </div>
+            <div id="k76_0" class="key">
+                <div>L</div>
+            </div>
+            <div id="k186_0" class="key">
+                <div>:</div>
+            </div>
+            <div id="k222_0" class="key">
+                <div>"</div>
+            </div>
+            <div id="k13_0" class="key U225">
+                <div>Enter</div>
+            </div>
+            <div id="k16_1" class="key U225">
+                <div>Shift</div>
+            </div>
+            <div id="k90_0" class="key">
+                <div>Z</div>
+            </div>
+            <div id="k88_0" class="key">
+                <div>X</div>
+            </div>
+            <div id="k67_0" class="key">
+                <div>C</div>
+            </div>
+            <div id="k86_0" class="key">
+                <div>V</div>
+            </div>
+            <div id="k66_0" class="key">
+                <div>B</div>
+            </div>
+            <div id="observer" class="key">
+                <div></div>
+            </div>
+            <div id="k78_0" class="key">
+                <div>N</div>
+            </div>
+            <div id="k77_0" class="key">
+                <div>M</div>
+            </div>
+            <div id="k188_0" class="key">
+                <div>&lt;</div>
+            </div>
+            <div id="k190_0" class="key">
+                <div>></div>
+            </div>
+            <div id="k191_0" class="key">
+                <div>?</div>
+            </div>
+            <div id="k38_0" class="key">
+                <div>Up</div>
+            </div>
+            <div id="yee2" class="key U175">
+                <div></div>
+            </div>
+            <div id="k40_0" class="key">
+                <div>Dowm</div>
+            </div>
+            <div id="k37_0" class="key">
+                <div>Left</div>
+            </div>
+            <div id="k39_0" class="key">
+                <div>Right</div>
+            </div>
+            <div id="k17_1" class="key U125">
+                <div>Ctrl</div>
+            </div>
+            <div id="k91_1" class="key U125">
+                <div>Win</div>
+            </div>
+            <div id="k18_1" class="key">
+                <div>Alt</div>
+            </div>
+            <div id="k32_0" class="key U225">
+                <div> </div>
+            </div>
+            <div id="k16_2" class="key U275">
+                <div>Shift</div>
+            </div>
+            <div id="k17_2" class="key">
+                <div>Ctrl</div>
+            </div>
+        </div>
+    </main>
+    <div id='cursorP' class='hidden'></div>
+    <div id='cursor' class='hidden'></div>
 
     <script src="time.js"></script>
     <script src="menu.js"></script>
     <script src="getData.js"></script>
     <script src="key.js"></script>
     <script src="Electrocardiogram.js"></script>
+    <script src="mouse.js"></script>
+    <script src="keyboard.js"></script>
 </body>
+
 </html>

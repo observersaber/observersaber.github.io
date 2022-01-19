@@ -1,6 +1,7 @@
-
 var PausePlay = document.getElementById('PausePlay')
 var wpm = document.getElementById('wpm')
+var timeCD;
+
 var timer = {
     input: document.getElementById('timing'),
     _countdown: null,
@@ -23,7 +24,7 @@ var timer = {
             me.display(me.input, (((new Date).getTime() - me._start) + me._times) / 1000 >> 0);
         }, 100);
         PausePlay.className = "playing";
-        wpm.style = "display:none";
+        
     },
     pause: function () {
         this._clearInterval();
@@ -38,16 +39,13 @@ var timer = {
     },
     reset: function () {
         this._clearInterval();
-
-        getData(save.data, save.article, save.min, save.max)
-        inputEvent = true;
-
         this._times = 0;
         this.display(this.input, 0);
+        wpm.style = "display:none";
     },
     display: function (el, val) {
         if (this._countdown == 'on') {
-            val = 60 - val;
+            val = timeCD - val;
         }
         var h = parseInt(val / 60 / 60),
             min = parseInt(val / 60) % 60,
@@ -107,7 +105,8 @@ function wpmshow(times) {
     `<p><span>${parseInt(correct / 5 / (parseInt(times) / 1000) * 60)}WPM</span></p>
     <hr>
     正確字數：<span>${correct_word}</span><br>
-    ACC：<span>${parseInt(accX / ACC * 100)}</span>%
+    ACC：<span>${parseInt(accX / ACC * 100)}</span>%<br>
+    錯誤字數：<span>${error}</span><br>
     `;
 
     wpm.style = "";

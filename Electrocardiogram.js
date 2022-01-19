@@ -6,7 +6,7 @@ var eltd = {
     enable: true
 }
 
-document.addEventListener('keypress', function () {
+function Electrocardiogram () {
     if (eltd.upperLimit <= 5) {
         eltd.upperLimit += 1;
     }
@@ -21,13 +21,10 @@ document.addEventListener('keypress', function () {
             for (var i = eltd.arr.length - 1, item; item = eltd.arr[i - 5]; i -= 3) {
                 eltd.arr[i] = eltd.arr[i - 3]
             }
-
             (eltd.direction == 'up') ? eltd.arr[2] = 5 - eltd.upperLimit : eltd.arr[2] = 5 + eltd.upperLimit;
 
             document.getElementById('eltd').getElementsByTagName("path")[0].setAttribute('d', eltd.arr.join(' '));
-
             eltd.upperLimit = 0;
-
             if (eltd.stop < 0) {
                 eltd.enable = true;
                 clearInterval(Electrocardiogram);
@@ -36,4 +33,4 @@ document.addEventListener('keypress', function () {
             }
         }, 50)
     }
-})
+}
