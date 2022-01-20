@@ -1,10 +1,11 @@
-
 var cursor = document.getElementById('cursor')
 var cursorP = document.getElementById('cursorP')
 
-document.addEventListener('DOMContentLoaded', function () {
-    
-})
+var hasClass = function (elem, className) {
+    var reg = new RegExp('(^|\\s+)' + className + '($|\\s+)');
+    return reg.test(elem.className);
+};
+
 
 function easeOutCirc(a, b, n) {
     var x = (1 - n) * a + n * b
@@ -43,4 +44,48 @@ function Move() {
     cursor.style.left = leftx + 'px'
     cursor.style.top = topx + 'px'
     window.requestAnimationFrame(Move);
+}
+
+
+document.addEventListener('mousedown', function () {
+    cursor.classList.add('active')
+})
+
+document.addEventListener('mouseup', function () {
+    cursor.classList.remove('active')
+})
+
+document.body.addEventListener('mouseleave', mouseAddHidden)
+
+document.addEventListener('mouseover', function (e) {
+    var e = e || window.event,
+        target = e.srcElement || e.target;
+
+
+    if (hasClass(cursor, 'hidden')) {
+        leftx = e.clientX
+        topx = e.clientY
+        cursor.classList.remove('hidden')
+        cursorP.classList.remove('hidden')
+    }
+
+
+    if (target.getAttribute("data-hover")) {
+        cursor.classList.add(target.getAttribute('data-hover'))
+        cursorP.classList.add(target.getAttribute('data-hover'))
+    }
+})
+
+document.addEventListener('mouseout', function (e) {
+    var e = e || window.event,
+        target = e.srcElement || e.target;
+    if (target.getAttribute("data-hover")) {
+        cursor.classList.remove(target.getAttribute('data-hover'))
+        cursorP.classList.remove(target.getAttribute('data-hover'))
+    }
+})
+
+function mouseAddHidden() {
+    cursor.classList.add('hidden')
+    cursorP.classList.add('hidden')
 }

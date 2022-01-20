@@ -36,7 +36,7 @@ function input(e) {
     if (inputEvent == 'true') {
         timer.start()
         Electrocardiogram()
-
+        mouseAddHidden()
         var e = e || window.event;
 
 

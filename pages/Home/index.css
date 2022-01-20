@@ -1,0 +1,137 @@
+html, body {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  color: #bbb;
+  background: #1d1f21;
+  transition: background .3s;
+  font-family: 'Source Code Pro', 'SourceCodePro', Arial, Helvetica, sans-serif;
+}
+
+.err {
+  color: #e05749;
+  background-color: #a133333f;
+}
+
+.foc {
+  background: #a0a0a03f;
+}
+
+.good {
+  color: #98c379;
+}
+
+.main {
+  position: absolute;
+  width: 100%;
+  max-width: 700px;
+  top: 200px;
+  left: 1em;
+  right: 1em;
+  font-size: 18px;
+  line-height: 1.5em;
+  letter-spacing: .1em;
+  margin: auto;
+  margin-top: -1.5em;
+  vertical-align: middle;
+  padding: 0;
+  height: 3.6em;
+  overflow: hidden;
+}
+
+#demo {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  width: 100%;
+  /* margin: 0 2em; */
+}
+
+#demo span {
+  display: inline-block;
+  padding: 0 .15em;
+  margin: .2em;
+}
+
+
+
+
+
+@font-face {
+  font-family: 'SourceCodePro';
+  src:  url('fonts/SourceCodePro.woff2') format("woff2"),
+    url('fonts/SourceCodePro.woff') format("woff"),
+    url('fonts/SourceCodePro.ttf') format("truetype"),
+    url('fonts/SourceCodePro.eot') format("embedded-opentype");
+}
+
+@font-face {
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?xfzwnl');
+  src:  url('fonts/icomoon.eot?xfzwnl#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?xfzwnl') format('truetype'),
+    url('fonts/icomoon.woff?xfzwnl') format('woff'),
+    url('fonts/icomoon.svg?xfzwnl#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-refresh:before {
+  content: "\e900";
+}
+.icon-loop2:before {
+  content: "\ea2e";
+}
+
+
+
+#reload {
+  color: #aaa;
+}
+
+#headerIcon {
+  float: right;
+}
+
+#headerIcon>div {
+  margin: 10px;
+  float: left;
+}
+
+.btn {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  padding: 10px;
+  border-radius: 3px;
+  font-size: 14px;
+  line-height: 1em;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.3s
+}
+
+.btn:hover {
+  background: #92929240;
+}

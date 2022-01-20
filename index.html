@@ -19,7 +19,7 @@
 <body class="dark">
     <aside id="menu">
         <div id="menu_icon_box">
-            <a id="menu_icon">
+            <a id="menu_icon" data-hover="hover">
                 <i class="menu_icon_top"></i>
                 <i class="menu_icon_middle"></i>
                 <i class="menu_icon_bottom"></i>
@@ -27,9 +27,11 @@
         </div>
         <div id="menu_box">
             <form id="modinput">
-                <input type="radio" name="mod" value="mod1" id="mod1" checked><label for="mod1">英文單字</label>
-                <input type="radio" name="mod" value="mod2" id="mod2"><label for="mod2">隨機字母</label>
-                <input type="radio" name="mod" value="mod3" id="mod3"><label for="mod3">中文單辭</label><br>
+                <input type="radio" name="mod" value="mod1" id="mod1" checked><label for="mod1"
+                    data-hover="hover2">英文單字</label>
+                <input type="radio" name="mod" value="mod2" id="mod2"><label for="mod2" data-hover="hover2">隨機字母</label>
+                <!-- <input type="radio" name="mod" value="mod3" id="mod3"><label for="mod3"
+                    data-hover="hover2">中文單辭</label><br> -->
 
                 <div id="BitCount">
                     最小字元:<input type="text" name="min" value="2" id="min"
@@ -41,14 +43,14 @@
                 </div>
 
                 <div class="flexCenter">
-                    <input type="checkbox" id="countdown" name="countdown" checked="checked">
+                    <input type="checkbox" id="countdown" name="countdown" checked="checked" data-hover="hover2">
                     <label for="countdown" class="countdownBox">
                         <div class="one">計時模式</div>
                         <div class="two">自訂字數: </div>
                     </label>
                     <div id="TimeCD">
-                        <span data-timeconfig="30">30</span>／<span data-timeconfig="60" class="selected">60</span>／<span
-                            data-timeconfig="120">120</span>／<span data-timeconfig="180">180</span>
+                        <span data-timeconfig="30" data-hover="hover3">30</span>／<span data-timeconfig="60" data-hover="hover3" class="selected">60</span>／<span
+                            data-timeconfig="120" data-hover="hover3">120</span>／<span data-timeconfig="180" data-hover="hover3">180</span>
                     </div>
                     <div id="WordCount">
                         <input type="text" name="article" value="90" id="article"
@@ -56,22 +58,22 @@
                     </div>
                 </div>
 
-                <input type="submit" class="btn" value="確認">
+                <input type="submit" class="btn" value="確認" data-hover="hover">
                 <div class="flexCenter">
                     <span>背景顏色</span>
                     <input type="checkbox" id="BColor">
-                    <label id="Bgcolor" for="BColor"></label>
+                    <label id="Bgcolor" for="BColor" data-hover="hover3"></label>
                 </div>
                 <div>
                     <span>文字大小</span>
-                    <input type="range" min="14" max="34" value="18" class="slider" id="fsRange">
+                    <input type="range" min="14" max="34" value="18" class="slider" id="fsRange" data-hover="hover2">
                 </div>
                 <div>
                     <span>鍵盤顯示</span>
-                    <select id="keyboardMenu">
+                    <select id="keyboardMenu" data-hover="hover2">
                         <option value="1">無</option>
                         <!-- <option value="2">一般</option> -->
-                        <option value="3">ch</option>
+                        <option value="3">Chocolice</option>
                     </select>
                 </div>
             </form>
@@ -90,11 +92,11 @@
                 </svg>
             </div>
             <div id="timing"></div>
-            <div id="PausePlay">
+            <div id="PausePlay" data-hover="hover3">
                 <div id="pause"></div>
                 <div id="play"></div>
             </div>
-            <div id="reload" type="button"><i class="icon-loop2"></i></div>
+            <div id="reload" type="button"><i class="icon-loop2" data-hover="hover3"></i></div>
         </div>
         <div id="wpm" style="display:none"></div>
         <div id="alicekeyboard">

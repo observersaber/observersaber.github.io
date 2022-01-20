@@ -63,12 +63,6 @@ function bitT(e) {
     return (e.length < 2) ? ("0" + e) : e
 }
 
-PausePlay.addEventListener('click', function () {
-    if (timer._timer) {
-        timer.pause()
-    }
-})
-
 function wpmshow(times) {
     var x = 0, y = 0;
 

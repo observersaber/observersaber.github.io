@@ -31,3 +31,38 @@
     mix-blend-mode: difference;
     transition: transform 0.35s ease;
 }
+
+#cursor.hidden,
+#cursorP.hidden {
+    opacity:0;
+}
+
+#cursor.active {
+    transform: translate(-50%, -50%) scale(.75);
+}
+
+#cursorP.hover {
+    transform: translate(-50%, -50%) scale(5);
+}
+
+#cursor.hover {
+    transform: translate(-50%, -50%) scale(.5);
+    opacity: 0
+}
+
+#cursorP.hover2 {
+    opacity: 0
+}
+
+#cursor.hover2 {
+    transform: translate(-50%, -50%) scale(.5);
+}
+
+#cursorP.hover3 {
+    transform: translate(-50%, -50%) scale(2);
+}
+
+#cursor.hover3 {
+    transform: translate(-50%, -50%) scale(.5);
+    opacity: 0
+}

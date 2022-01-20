@@ -28,8 +28,6 @@
     width: 100%;
 }
 
-
-
 #menu_icon {
     position: absolute;
     left: 0%;
@@ -49,6 +47,7 @@
 #menu_icon i {
     position: absolute;
     display: block;
+    pointer-events: none;
     height: 14%;
     background: #aaa;
     transition: opacity .5s;
@@ -238,10 +237,6 @@
     border: 6px solid #fff;
 }
 
-#modinput label:hover {
-    cursor: pointer;
-}
-
 #BColor {
     display: none;
 }
@@ -252,8 +247,7 @@
     align-items: center;
 }
 
- #Bgcolor {
-    cursor: pointer;
+#Bgcolor {
     display: block;
     position: relative;
     margin: 0 10px;
@@ -375,7 +369,6 @@ input[type=submit] {
     background: none;
     border: .5px #aaa solid;
     color: #fafafa;
-    cursor: pointer;
     transition: background 0.3s
 }
 
@@ -389,17 +382,17 @@ input[type=submit]:hover {
     width: 74px;
     height: 1em;
     position: relative;
-    margin:0 10px;
+    margin: 0 10px;
     transform-style: preserve-3d;
     transform-origin: .5em;
     transform: rotateX(90deg);
     transition: transform .5s;
 }
 
-.countdownBox div {
+.countdownBox>div {
     position: absolute;
     line-height: 1em;
-    text-align: center;
+    pointer-events: all;
 }
 
 .one {
@@ -419,20 +412,20 @@ input[type=submit]:hover {
 #TimeCD {
     font-size: 14px;
     line-height: 14px;
-    color:#666;
+    color: #666;
     display: none;
 }
-#TimeCD span{
+
+#TimeCD span {
     transition: .3s;
-    cursor: pointer;
 }
 
-#TimeCD span.selected{
-    color:#afafaf;
+#TimeCD span.selected {
+    color: #afafaf;
 }
 
-#TimeCD span:hover{
-    color:#fff;
+#TimeCD span:hover {
+    color: #fff;
 }
 
 #countdown:checked~#TimeCD {
@@ -442,26 +435,17 @@ input[type=submit]:hover {
 
 
 #BitCount {
-    height:0px;
+    height: 0px;
     overflow: hidden;
     transition: height .3s;
     visibility: hidden;
 }
 
 #mod2:checked~#BitCount {
-    height:90px;
+    height: 90px;
     visibility: visible;
 }
 
 #countdown:checked~#WordCount {
     visibility: hidden
-}
-
-#reload {
-    cursor: pointer;
-    transition: .3s
-}
-
-#reload:hover {
-    color: #ec3;
 }

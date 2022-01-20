@@ -6,6 +6,8 @@
     display:none;
 }
 
+
+
 .key {
     position: absolute;
     background: #ccc;
@@ -30,8 +32,18 @@
     font-size: 12px;
     line-height: 20px;
     background: #eee;
-    color: #1d1f21;
+    color: #b2b2b2;
 }
+
+.dark .key{
+    background: #545454;
+    box-shadow: 0 1px 3px 1px #444;
+}
+.dark .key>div{
+    background: #777;
+    color: #b2b2b2;
+}
+
 
 .U125>div {
     left: 12%;
