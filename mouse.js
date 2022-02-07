@@ -1,6 +1,5 @@
 var cursor = document.getElementById('cursor')
 var cursorP = document.getElementById('cursorP')
-
 var hasClass = function (elem, className) {
     var reg = new RegExp('(^|\\s+)' + className + '($|\\s+)');
     return reg.test(elem.className);
@@ -30,6 +29,13 @@ function handleCurosr(e) {
             yWalk = (y1 / height) * (walk * 2) - walk;
         target.style.transform = 'translate(' + xWalk + 'px,' + yWalk + 'px)'
     }
+
+    if (hasClass(cursor, 'hidden')) {
+        leftx = e.clientX
+        topx = e.clientY
+        cursor.classList.remove('hidden')
+        cursorP.classList.remove('hidden')
+    }
 }
 
 document.addEventListener("mousemove", handleCurosr);
@@ -43,6 +49,9 @@ function Move() {
     topx = easeOutCirc(topx, y, 0.2)
     cursor.style.left = leftx + 'px'
     cursor.style.top = topx + 'px'
+
+    
+
     window.requestAnimationFrame(Move);
 }
 
@@ -60,15 +69,6 @@ document.body.addEventListener('mouseleave', mouseAddHidden)
 document.addEventListener('mouseover', function (e) {
     var e = e || window.event,
         target = e.srcElement || e.target;
-
-
-    if (hasClass(cursor, 'hidden')) {
-        leftx = e.clientX
-        topx = e.clientY
-        cursor.classList.remove('hidden')
-        cursorP.classList.remove('hidden')
-    }
-
 
     if (target.getAttribute("data-hover")) {
         cursor.classList.add(target.getAttribute('data-hover'))

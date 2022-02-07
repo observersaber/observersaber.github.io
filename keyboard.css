@@ -1,81 +1,124 @@
 #alicekeyboard {
     position: relative;
-    width: 90%;
+    width: 100%;
     margin: 0 auto;
     padding-top: 32%;
-    display:none;
+    display: none;
 }
 
-
-
-.key {
+#alicekeyboard>div {
     position: absolute;
-    background: #ccc;
+    /* background: #ccc; */
     width: 5%;
     padding-top: 5%;
+
+    border-radius: 10%;
+
+    background: linear-gradient(180deg, #282828, #202020);
+
+    box-shadow: 4px 8px 10px #0006;
+    overflow: hidden;
     transition: margin .05s ease;
-    box-shadow: 0 1px 3px 1px #bbb;
+
 }
 
-.key>div {
+body.light #alicekeyboard>div {
+    background: linear-gradient(180deg, #fff, #eaeaea);
+}
+
+body.light #alicekeyboard>div::before {
+    background: linear-gradient(90deg, #f2f2f2, #fff);
+    box-shadow: -10px -10px 10px rgba(255, 255, 255, 0.25),
+        10px 5px 10px rgba(0, 0, 0, 0.15);
+    border-left: 1px solid #fff4;
+    border-bottom: 1px solid #fff4;
+    border-top: 1px solid #fff9;
+}
+
+#alicekeyboard>div::before {
+    content: '';
     position: absolute;
     top: 6%;
+    left: 9%;
+    bottom: 20%;
+    right: 15%;
+    background: linear-gradient(90deg, #232323, #4a4a4a);
+    border-radius: 10%;
+    box-shadow: -10px -10px 10px rgba(255, 255, 255, 0.25),
+        10px 5px 10px rgba(0, 0, 0, 0.15);
+    border-left: 1px solid #0004;
+    border-bottom: 1px solid #0004;
+    border-top: 1px solid #0009;
+}
+
+#alicekeyboard>div i {
+    position: absolute;
+    top: 8%;
     left: 15%;
-    width: 70%;
-    height: 70%;
-    border-radius: 5%;
-    overflow: hidden;
-    margin: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 12px;
-    line-height: 20px;
-    background: #eee;
-    color: #b2b2b2;
+    color: #fff;
+    font-style: normal;
 }
 
-.dark .key{
-    background: #545454;
-    box-shadow: 0 1px 3px 1px #444;
-}
-.dark .key>div{
-    background: #777;
-    color: #b2b2b2;
+body.light #alicekeyboard>div i{
+    color:#000
 }
 
-
-.U125>div {
-    left: 12%;
-    width: 76%
+#alicekeyboard .U125 {
+    width: 6.25%
 }
 
-.U150>div {
-    left: 11%;
-    width: 78%;
+#alicekeyboard .U125::before {
+    left: 7.2%;
+    right: 12%;
 }
 
-.U175>div {
-    left: 10%;
-    width: 80%;
+#alicekeyboard .U150 {
+    width: 7.5%;
 }
 
-.U200>div {
-    left: 8%;
-    width: 84%;
-}
-
-.U225>div {
-    left: 7%;
-    width: 86%;
-}
-
-.U275>div {
+#alicekeyboard .U150::before {
     left: 6%;
-    width: 88%
+    right: 10%;
 }
 
-.key.down {
+#alicekeyboard .U175 {
+    width: 8.75%;
+}
+
+#alicekeyboard .U175::before {
+    left: 5.14%;
+    right: 8.57%;
+}
+
+#alicekeyboard .U200 {
+    width: 10%;
+}
+
+#alicekeyboard .U200::before {
+    left: 4.5%;
+    right: 7.5%;
+}
+
+#alicekeyboard .U225 {
+    width: 11.25%;
+}
+
+#alicekeyboard .U225::before {
+    left: 4%;
+    right: 6.67%;
+}
+
+#alicekeyboard .U275 {
+    width: 13.75%
+}
+
+#alicekeyboard .U275::before {
+    left: 3.27%;
+    right: 5.45%;
+}
+
+
+#alicekeyboard .down {
     margin-top: .6%;
 }
 
@@ -83,27 +126,27 @@
 
 #k27_0 {
     top: 0%;
-    left: 2.75%;
+    left: 3.5%;
 }
 
 #k33_0 {
     top: 17.3%;
-    left: 1.375%;
+    left: 2.25%;
 }
 
 #k34_0 {
     top: 34.6%;
-    left: 0;
+    left: 1%;
 }
 
 #k36_0 {
     top: 54.2%;
-    left: -1%;
+    left: 0%;
 }
 
 #k35_0 {
     top: 71.5%;
-    left: -1%;
+    left: 0%;
 }
 
 /* -1 */
@@ -459,7 +502,6 @@
     top: 72.8%;
     left: 66.8%;
 }
-
 
 #k51_0, #k52_0, #k53_0, #k54_0, #k87_0, #k69_0, #k82_0, #k84_0, #k83_0, #k68_0, #k70_0, #k71_0, #k88_0, #k67_0, #k86_0, #k66_0, #k18_1, #k32_0 {
     -moz-transform: rotate(10deg);

@@ -14,7 +14,7 @@ function listener() {
 document.addEventListener('click', function (e) {
     var e = e || window.event,
         target = e.srcElement || e.target;
-
+    console.log(target)
     // if (target.className != "focus" && main.className == "") {
     //     main.className = "focus"
     // }
@@ -37,7 +37,6 @@ document.addEventListener('click', function (e) {
             if (inputEvent != 'stop') {
                 timer.pause()
                 inputEvent = 'false'
-                main.className = "focus"
             }
             break;
         case "PausePlay":
@@ -45,7 +44,10 @@ document.addEventListener('click', function (e) {
                 timer.pause()
             }
             break;
-        case "":
+        case "midBox":
+            if(menu.className=="on"){
+                menu.className="off"
+            }
             break;
         case "":
             break;

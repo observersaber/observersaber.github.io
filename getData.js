@@ -15,8 +15,9 @@ var data, save, t, demospan, num;
 var V_word, V_dataB;
 
 function mod() {
+    main.className = 'loading'
     timeCD = document.getElementsByClassName('selected')[0].dataset.timeconfig;
-    
+
     var menuFrom = new FormData(form)
     timer._countdown = menuFrom.get('countdown')
 
@@ -91,10 +92,10 @@ function getData(data, article, min, max) {
     save.bit = bit
     t = true
 
-    if (menu.className != 'on') {
-        main.className = ''
-    }
+    // if (menu.className != 'on') {
 
+    // }
+    main.className = ''
     inputEvent = 'true'
     timer.reset()
 }

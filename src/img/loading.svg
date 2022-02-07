@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="-50 -50 200 200">
+    <g transform="translate(50 50)">
+        <g transform="translate(-19 -19) scale(0.6)">
+            <g>
+                <animateTransform attributeName="transform" type="rotate" values="0;45" keyTimes="0;1" dur="0.4"
+                    begin="0s" repeatCount="indefinite"></animateTransform>
+                <path
+                    d="M31 20 L40 29 L29 40 L20 31 A38 38 0 0 1 8 37 L8 37 L8 49 L-8 49 L-8 37 A38 38 0 0 1 -20 31 L-20 32 L-29 40 L-40 29 L-32 20 A38 38 0 0 1 -37 8 L-37 8 L-49 8 L-49 -8 L-37 -8 A38 38 0 0 1 -31 -20 L-32 -20 L-40 -29 L-29 -40 L-20 -32 A38 38 0 0 1 -8 -37 L-8 -37 L-8 -49 L8 -49 L8 -37 A38 38 0 0 1 20 -32 L20 -32 L29 -40 L40 -29 L31 -20 A38 38 0 0 1 37 -8 L37 -7 L49 -8 L49 8 L37 8 A38 38 0 0 1 32 20 M0 -20A20 20 0 1 0 0 20 A20 20 0 1 0 0 -20"
+                    fill="#e9c033"></path>
+            </g>
+        </g>
+        <g transform="translate(19 19) scale(0.6)">
+            <g>
+                <animateTransform attributeName="transform" type="rotate" values="45;0" keyTimes="0;1" dur="0.4"
+                    begin="-0.2s" repeatCount="indefinite"></animateTransform>
+                <path
+                    d="M-31 -20 L-40 -29 L-29 -40 L-20 -31 A38 38 0 0 1 -8 -37 L-8 -37 L-8 -49 L8 -49 L8 -37 A38 38 0 0 1 20 -32 L20 -32 L29 -40 L40 -29 L32 -20 A38 38 0 0 1 37 -7 L37 -7 L49 -8 L49 8 L37 8 A38 38 0 0 1 32 20 L32 20 L40 29 L29 40 L20 32 A38 38 0 0 1 8 37 L8 37 L8 49 L-8 49 L-8 37 A38 38 0 0 1 -20 32 L-20 32 L-29 40 L-40 29 L-32 20 A38 38 0 0 1 -37 8 L-37 8 L-49 8 L-49 -8 L-37 -8 A38 38 0 0 1 -32 -20 M0 -20A20 20 0 1 0 0 20 A20 20 0 1 0 0 -20"
+                    fill="#bebebe"></path>
+            </g>
+        </g>
+    </g>
+</svg>
