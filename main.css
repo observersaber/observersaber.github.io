@@ -36,6 +36,10 @@ main {
     margin: 0 auto;
 }
 
+a {
+    color: #e0e4e4;
+}
+
 #headerIcon {
     width: 100%;
     margin: 20px auto;
@@ -74,7 +78,7 @@ main {
     color: #ec0
 }
 
-.loading:after{
+.loading:after {
     content: "";
     position: absolute;
     top: 0;
