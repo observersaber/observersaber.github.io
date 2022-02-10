@@ -38,7 +38,6 @@ main::after{
     height: 85px;
     transition: 0s;
     transition-delay: .4s;
-    cursor: pointer;
 }
 
 .on #menu_icon_box {
