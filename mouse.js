@@ -58,10 +58,12 @@ function Move() {
 
 document.addEventListener('mousedown', function () {
     cursor.classList.add('active')
+
 })
 
 document.addEventListener('mouseup', function () {
     cursor.classList.remove('active')
+
 })
 
 document.body.addEventListener('mouseleave', mouseAddHidden)
@@ -89,4 +91,5 @@ function mouseAddHidden() {
     cursor.classList.add('hidden')
     cursorP.classList.add('hidden')
 }
-!function () { !function () { var a = { touchstart: "mousedown", touchmove: "mousemove", touchend: "mouseup" }; for (originalType in a) document.addEventListener(originalType, function (b) { "click" != b.type && ("touchstart" != b.type && "touchmove" != b.type && "touchend" != b.type && b.preventDefault(), event = document.createEvent("MouseEvents"), touch = b.changedTouches[0], event.initMouseEvent(a[b.type], !0, !0, window, 0, touch.screenX, touch.screenY, touch.clientX, touch.clientY, touch.ctrlKey, touch.altKey, touch.shiftKey, touch.metaKey, 0, null), b.target.dispatchEvent(event), event.preventDefault()) }) }() }();
+
+document.addEventListener('touchend', mouseAddHidden)
