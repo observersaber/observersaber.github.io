@@ -14,6 +14,7 @@ function listener() {
 document.addEventListener('click', function (e) {
     var e = e || window.event,
         target = e.srcElement || e.target;
+    console.log(target)
     // if (target.className != "focus" && main.className == "") {
     //     main.className = "focus"
     // }
@@ -75,6 +76,7 @@ keyboardMenu.addEventListener("change", function () {
         //     option_02();
         //     break;
         case "3":
+            console.log('123')
             document.getElementById('alicekeyboard').style.display = "block"
             break;
         default:
